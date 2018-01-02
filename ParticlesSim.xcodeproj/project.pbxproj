@@ -13,6 +13,7 @@
 		420CA0C31FF854DA00EECC49 /* nice_music.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 420CA0C21FF854DA00EECC49 /* nice_music.ogg */; };
 		420CA0C51FF854DA00EECC49 /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 420CA0C41FF854DA00EECC49 /* sansation.ttf */; };
 		420CA0C71FF854DA00EECC49 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 420CA0C61FF854DA00EECC49 /* icon.png */; };
+		421DA3311FFB2BB20098929D /* ElasticCollisionSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 421DA32F1FFB2BB20098929D /* ElasticCollisionSim.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,8 @@
 		420CA0C21FF854DA00EECC49 /* nice_music.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = nice_music.ogg; sourceTree = "<group>"; };
 		420CA0C41FF854DA00EECC49 /* sansation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sansation.ttf; sourceTree = "<group>"; };
 		420CA0C61FF854DA00EECC49 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		421DA32F1FFB2BB20098929D /* ElasticCollisionSim.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ElasticCollisionSim.cpp; sourceTree = "<group>"; };
+		421DA3301FFB2BB20098929D /* ElasticCollisionSim.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ElasticCollisionSim.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +63,8 @@
 				420CA0BA1FF854DA00EECC49 /* ResourcePath.mm */,
 				420CA0BC1FF854DA00EECC49 /* ResourcePath.hpp */,
 				420CA0BD1FF854DA00EECC49 /* main.cpp */,
+				421DA32F1FFB2BB20098929D /* ElasticCollisionSim.cpp */,
+				421DA3301FFB2BB20098929D /* ElasticCollisionSim.hpp */,
 				420CA0BF1FF854DA00EECC49 /* Resources */,
 				420CA0B81FF854DA00EECC49 /* Supporting Files */,
 			);
@@ -174,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				420CA0BE1FF854DA00EECC49 /* main.cpp in Sources */,
+				421DA3311FFB2BB20098929D /* ElasticCollisionSim.cpp in Sources */,
 				420CA0BB1FF854DA00EECC49 /* ResourcePath.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
