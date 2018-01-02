@@ -46,7 +46,7 @@ void ParticleSystem::draw(sf::RenderWindow &window){
     
     //resetDefaultColor();
     for(auto j = particleSystem.begin(); j != particleSystem.end(); j++){
-        for(auto i = particleSystem.begin(); i != particleSystem.end() && i != j; i++){
+        for(auto i = j+1; i != particleSystem.end() && i != j; i++){
             if( (*j)->contact(**i) ) {
                 //(*j)->setColor(sf::Color::Red);
                 //(*i)->setColor(sf::Color::Red);
@@ -82,7 +82,7 @@ void ParticleSystem::collide(ParticlePtr& p1, ParticlePtr& p2){
     //auto dv = float( dotProduct(v1-v2, r1-r2)/pow(dist,2) ) * (r1-r2);
     auto v1prime = v1 - float( dotProduct(v1-v2, r1-r2)/pow(dist,2) ) * (r1-r2);
     auto v2prime = v2 - float( dotProduct(v2-v1, r2-r1)/pow(dist,2) ) * (r2-r1);
-    p1->setVelocity(v1prime);
-    p2->setVelocity(v2prime);
+    p1->velocity = v1prime;
+    p2->velocity = v2prime;
 }
 

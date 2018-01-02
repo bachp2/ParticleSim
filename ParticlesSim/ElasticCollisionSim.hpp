@@ -24,13 +24,13 @@ struct Particle{
     sf::CircleShape shape;
     bool isDestroyed;
     sf::Vector2f velocity;
-    
+    sf::Vector2f acceleration;
     Particle() : isDestroyed{false} {};
     Particle(float x, float y){
         isDestroyed = false;
         shape.setPosition(x, y);
         shape.setRadius(particleRadius);
-        shape.setFillColor(sf::Color::Blue);
+        shape.setFillColor(sf::Color(169,169,169));
         shape.setOrigin(particleRadius, particleRadius);
     }
     float x() const {
@@ -83,9 +83,6 @@ struct Particle{
         shape.setOrigin(particleRadius, particleRadius);
     }
     
-    void setVelocity(const sf::Vector2f &v){
-        velocity = v;
-    }
 };
 
 class ParticleSystem{

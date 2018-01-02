@@ -14,6 +14,7 @@
 		420CA0C51FF854DA00EECC49 /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 420CA0C41FF854DA00EECC49 /* sansation.ttf */; };
 		420CA0C71FF854DA00EECC49 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 420CA0C61FF854DA00EECC49 /* icon.png */; };
 		421DA3311FFB2BB20098929D /* ElasticCollisionSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 421DA32F1FFB2BB20098929D /* ElasticCollisionSim.cpp */; };
+		421DA3341FFB5FBE0098929D /* NBodySim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 421DA3321FFB5FBE0098929D /* NBodySim.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,8 @@
 		420CA0C61FF854DA00EECC49 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		421DA32F1FFB2BB20098929D /* ElasticCollisionSim.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ElasticCollisionSim.cpp; sourceTree = "<group>"; };
 		421DA3301FFB2BB20098929D /* ElasticCollisionSim.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ElasticCollisionSim.hpp; sourceTree = "<group>"; };
+		421DA3321FFB5FBE0098929D /* NBodySim.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NBodySim.cpp; sourceTree = "<group>"; };
+		421DA3331FFB5FBE0098929D /* NBodySim.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NBodySim.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +68,8 @@
 				420CA0BD1FF854DA00EECC49 /* main.cpp */,
 				421DA32F1FFB2BB20098929D /* ElasticCollisionSim.cpp */,
 				421DA3301FFB2BB20098929D /* ElasticCollisionSim.hpp */,
+				421DA3321FFB5FBE0098929D /* NBodySim.cpp */,
+				421DA3331FFB5FBE0098929D /* NBodySim.hpp */,
 				420CA0BF1FF854DA00EECC49 /* Resources */,
 				420CA0B81FF854DA00EECC49 /* Supporting Files */,
 			);
@@ -180,6 +185,7 @@
 			files = (
 				420CA0BE1FF854DA00EECC49 /* main.cpp in Sources */,
 				421DA3311FFB2BB20098929D /* ElasticCollisionSim.cpp in Sources */,
+				421DA3341FFB5FBE0098929D /* NBodySim.cpp in Sources */,
 				420CA0BB1FF854DA00EECC49 /* ResourcePath.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

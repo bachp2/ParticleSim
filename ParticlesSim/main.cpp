@@ -27,7 +27,7 @@
 int main(int, char const**)
 {
     // Create the main window
-    sf::RenderWindow window({windowWidth,windowHeight}, "Particles Simulation");
+    sf::RenderWindow window(sf::VideoMode{windowWidth,windowHeight}, "Particles Simulation", sf::Style::Titlebar | sf::Style::Close);
     window.setFramerateLimit(120);
     
     // Set the Icon
@@ -38,7 +38,7 @@ int main(int, char const**)
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
     ParticleSystem system(window.getSize());
-    system.spawn(50);
+    system.spawn(100);
     // Start the game loop
     while (window.isOpen())
     {
