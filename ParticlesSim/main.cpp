@@ -38,6 +38,7 @@ int main(int, char const**)
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
     ParticleSystem system(window.getSize());
+    Bar piston;
     system.spawn(100);
     // Start the game loop
     while (window.isOpen())
@@ -59,6 +60,7 @@ int main(int, char const**)
         // Clear screen
         window.clear(sf::Color::White);
         //draw particles
+        piston.draw(window);
         system.draw(window);
         // Update the window
         window.display();

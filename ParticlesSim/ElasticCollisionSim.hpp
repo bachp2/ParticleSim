@@ -20,11 +20,21 @@
 constexpr float particleRadius{5.f};
 constexpr int windowWidth{800}, windowHeight{600};
 
+struct Bar{
+    sf::Vertex line[2];
+    sf::Color color = sf::Color::Blue;
+    Bar() : line{
+            sf::Vertex(sf::Vector2f(0, 10), color),
+            sf::Vertex(sf::Vector2f(windowWidth, 10), color)
+    } {};
+    void draw(sf::RenderWindow &window);
+};
+
 struct Particle{
     sf::CircleShape shape;
     bool isDestroyed;
     sf::Vector2f velocity;
-    sf::Vector2f acceleration;
+    //sf::Vector2f acceleration;
     Particle() : isDestroyed{false} {};
     Particle(float x, float y){
         isDestroyed = false;

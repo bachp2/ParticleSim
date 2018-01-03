@@ -11,8 +11,24 @@
 
 #include <stdio.h>
 #include "ElasticCollisionSim.hpp"
-class NBody : public ParticleSystem
+struct Body : Particle
 {
-    
+    float mass;
+    sf::Vector2f acceleration;
+    Body() : acceleration{0.0f,0.0f}, mass{1.0f}
+    {
+        shape.setRadius(1.0f);
+    };
 };
+
+//class NBody: ParticleSystem<Body>
+//{
+//    sf::Vector2f getUnitDistanceVector(Body& b1, Body& b2){
+//        float distance = b2.getDistance(b1);
+//        return (b2.getPosition() - b1.getPosition())/distance;
+//    };
+//    sf::Vector2f getNBodyGravitationalAcc(){
+//        float sum = 0;
+//    };
+//};
 #endif /* NBodySim_hpp */
