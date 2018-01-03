@@ -17,7 +17,7 @@
 #include <iostream>
 #include <math.h>
 
-constexpr float particleRadius{5.f};
+constexpr float particleRadius{1.f};
 constexpr int windowWidth{800}, windowHeight{600};
 
 struct Bar{
@@ -40,7 +40,8 @@ struct Particle{
         isDestroyed = false;
         shape.setPosition(x, y);
         shape.setRadius(particleRadius);
-        shape.setFillColor(sf::Color(169,169,169));
+        //shape.setFillColor(sf::Color(169,169,169));
+        shape.setFillColor(sf::Color::Blue);
         shape.setOrigin(particleRadius, particleRadius);
     }
     float x() const {
@@ -78,7 +79,7 @@ struct Particle{
     }
     
     bool contact(Particle& p){
-        return getDistance(p) <= particleRadius*2;
+        return getDistance(p) <= (this->shape.getRadius() + p.shape.getRadius());
     }
     
     void setColor(sf::Color c){

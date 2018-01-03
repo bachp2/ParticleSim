@@ -39,7 +39,7 @@ int main(int, char const**)
 
     ParticleSystem system(window.getSize());
     Bar piston;
-    system.spawn(100);
+    system.spawn(1000);
     // Start the game loop
     while (window.isOpen())
     {
