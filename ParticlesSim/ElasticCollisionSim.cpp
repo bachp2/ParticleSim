@@ -58,7 +58,7 @@ void ParticleSystem::draw(sf::RenderWindow &window){
             }
         }
     }
-    for(ParticleIter it = particleSystem.begin(); it != particleSystem.end(); it++){
+    for(ParticlePtrIter it = particleSystem.begin(); it != particleSystem.end(); it++){
         auto p = *it;
         
         if( p->left() < 0.0f) p->velocity.x = abs(p->velocity.x);

@@ -96,20 +96,23 @@ struct Particle{
 };
 
 class ParticleSystem{
+    
+    int mapHeight;
+    int mapWidth;
+public:
     typedef std::uniform_real_distribution<> UniRealDist;
     typedef std::uniform_int_distribution<> UniIntDist;
     typedef std::shared_ptr<Particle> ParticlePtr;
-    typedef std::vector<ParticlePtr>::iterator ParticleIter;
-    float mapHeight;
-    float mapWidth;
+    typedef std::vector<ParticlePtr>::iterator ParticlePtrIter;
     
     std::vector<ParticlePtr> particleSystem;
-public:
+    
     ParticleSystem(sf::Vector2u canvasSize){
         mapHeight = canvasSize.y;
         mapWidth = canvasSize.x;
         //std::cout << mapWidth << ' ' << mapHeight << std::endl;
     }
+    
     void spawn(int n);
     void draw(sf::RenderWindow &window);
     void collide(ParticlePtr& p1, ParticlePtr& p2);

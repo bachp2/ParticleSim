@@ -7,3 +7,10 @@
 //
 
 #include "NBodySim.hpp"
+
+void NBody::spawn(int n){
+    
+}
+void NBody::applyGravAcc2System()
+{
+}

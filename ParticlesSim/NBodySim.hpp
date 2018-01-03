@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "ElasticCollisionSim.hpp"
+
 struct Body : Particle
 {
     float mass;
@@ -21,14 +22,30 @@ struct Body : Particle
     };
 };
 
-//class NBody: ParticleSystem<Body>
-//{
-//    sf::Vector2f getUnitDistanceVector(Body& b1, Body& b2){
-//        float distance = b2.getDistance(b1);
-//        return (b2.getPosition() - b1.getPosition())/distance;
-//    };
-//    sf::Vector2f getNBodyGravitationalAcc(){
-//        float sum = 0;
-//    };
-//};
+class NBody
+{
+    int mapHeight, mapWidth;
+    typedef std::shared_ptr<Body> BodyPtr;
+    typedef std::set<BodyPtr>::iterator BodyPtrIter;
+    std::set<Body> nbodySystem;
+    
+public:
+    NBody();
+    NBody(sf::Vector2u canvasSize){
+        mapHeight = canvasSize.y;
+        mapWidth = canvasSize.x;
+        //std::cout << mapWidth << ' ' << mapHeight << std::endl;
+    }
+    ~NBody();
+    sf::Vector2f getUnitDistanceVector(BodyPtr& b1, BodyPtr& b2){
+        float distance = b2->getDistance(*b1);
+        return (b2->getPosition() - b1->getPosition())/distance;
+    };
+    void spawn(int n);
+    void update();
+    void draw(sf::RenderWindow &window);
+    void collide(BodyPtr& b1, BodyPtr& b2);
+    void applyGravAcc2System();
+    
+};
 #endif /* NBodySim_hpp */
