@@ -36,6 +36,7 @@
 #include <random>
 #include <iostream>
 #include <math.h>
+constexpr float particleRadius{1.0f};
 
 ////////////////////////////////////////////////////////////
 /// \brief Return the path to the resource folder.
