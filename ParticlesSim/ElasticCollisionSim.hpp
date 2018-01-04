@@ -79,7 +79,8 @@ struct Particle{
     }
     
     bool contact(Particle& p){
-        return getDistance(p) <= (this->shape.getRadius() + p.shape.getRadius());
+        sf::Vector2f dxdy = this->getPosition() - p.getPosition();
+        return pow(dxdy.x,2) + pow(dxdy.y,2) < pow(this->shape.getRadius() + p.shape.getRadius(), 2);
     }
     
     void setColor(sf::Color c){

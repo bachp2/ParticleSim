@@ -78,11 +78,12 @@ void ParticleSystem::collide(ParticlePtr& p1, ParticlePtr& p2){
     auto v2 = p2->velocity;
     auto r1 = p1->getPosition();
     auto r2 = p2->getPosition();
-    float dist = p1->getDistance(*p2);
+    auto dr = r1-r2;
+    float dist_square = pow(dr.x,2) + pow(dr.y,2);
     //auto p12u = (r1-r2)/dist;
     //auto dv = float( dotProduct(v1-v2, r1-r2)/pow(dist,2) ) * (r1-r2);
-    auto v1prime = v1 - float( dotProduct(v1-v2, r1-r2)/pow(dist,2) ) * (r1-r2);
-    auto v2prime = v2 - float( dotProduct(v2-v1, r2-r1)/pow(dist,2) ) * (r2-r1);
+    auto v1prime = v1 - float( dotProduct(v1-v2, r1-r2)/dist_square ) * (dr);
+    auto v2prime = v2 - float( dotProduct(v2-v1, r2-r1)/dist_square ) * (-dr);
     p1->velocity = v1prime;
     p2->velocity = v2prime;
 }
