@@ -11,6 +11,9 @@
 
 #include <stdio.h>
 #include "ElasticCollisionSim.hpp"
+#include "ResourcePath.hpp"
+#include "Particle.hpp"
+
 struct Body : Particle
 {
     float mass;

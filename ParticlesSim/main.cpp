@@ -14,12 +14,6 @@
 // function `resourcePath()` from ResourcePath.hpp
 //
 
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
-#include <vector>
-#include <random>
-#include <iostream>
-#include <math.h>
 
 // Here is a small helper for you! Have a look.
 #include "ResourcePath.hpp"
@@ -38,7 +32,7 @@ int main(int, char const**)
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
     ParticleSystem system(window.getSize());
-    Bar piston;
+    //Bar piston;
     system.spawn(1000);
     // Start the game loop
     while (window.isOpen())
@@ -60,7 +54,7 @@ int main(int, char const**)
         // Clear screen
         window.clear(sf::Color::White);
         //draw particles
-        piston.draw(window);
+        //piston.draw(window);
         system.draw(window);
         // Update the window
         window.display();

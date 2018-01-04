@@ -30,6 +30,12 @@
 // Headers
 ////////////////////////////////////////////////////////////
 #include <string>
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+#include <vector>
+#include <random>
+#include <iostream>
+#include <math.h>
 
 ////////////////////////////////////////////////////////////
 /// \brief Return the path to the resource folder.

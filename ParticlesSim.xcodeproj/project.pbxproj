@@ -15,6 +15,8 @@
 		420CA0C71FF854DA00EECC49 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 420CA0C61FF854DA00EECC49 /* icon.png */; };
 		421DA3311FFB2BB20098929D /* ElasticCollisionSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 421DA32F1FFB2BB20098929D /* ElasticCollisionSim.cpp */; };
 		421DA3341FFB5FBE0098929D /* NBodySim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 421DA3321FFB5FBE0098929D /* NBodySim.cpp */; };
+		42D651231FFDD51100C4D250 /* Quadtree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42D651211FFDD51100C4D250 /* Quadtree.cpp */; };
+		42D651251FFDFBEC00C4D250 /* Particle.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 42D651241FFDFBEC00C4D250 /* Particle.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,9 @@
 		421DA3301FFB2BB20098929D /* ElasticCollisionSim.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ElasticCollisionSim.hpp; sourceTree = "<group>"; };
 		421DA3321FFB5FBE0098929D /* NBodySim.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NBodySim.cpp; sourceTree = "<group>"; };
 		421DA3331FFB5FBE0098929D /* NBodySim.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NBodySim.hpp; sourceTree = "<group>"; };
+		42D651211FFDD51100C4D250 /* Quadtree.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Quadtree.cpp; sourceTree = "<group>"; };
+		42D651221FFDD51100C4D250 /* Quadtree.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Quadtree.hpp; sourceTree = "<group>"; };
+		42D651241FFDFBEC00C4D250 /* Particle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Particle.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +77,9 @@
 				421DA3331FFB5FBE0098929D /* NBodySim.hpp */,
 				420CA0BF1FF854DA00EECC49 /* Resources */,
 				420CA0B81FF854DA00EECC49 /* Supporting Files */,
+				42D651211FFDD51100C4D250 /* Quadtree.cpp */,
+				42D651221FFDD51100C4D250 /* Quadtree.hpp */,
+				42D651241FFDFBEC00C4D250 /* Particle.hpp */,
 			);
 			path = ParticlesSim;
 			sourceTree = "<group>";
@@ -184,7 +192,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				420CA0BE1FF854DA00EECC49 /* main.cpp in Sources */,
+				42D651251FFDFBEC00C4D250 /* Particle.hpp in Sources */,
 				421DA3311FFB2BB20098929D /* ElasticCollisionSim.cpp in Sources */,
+				42D651231FFDD51100C4D250 /* Quadtree.cpp in Sources */,
 				421DA3341FFB5FBE0098929D /* NBodySim.cpp in Sources */,
 				420CA0BB1FF854DA00EECC49 /* ResourcePath.mm in Sources */,
 			);
