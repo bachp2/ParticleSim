@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include "ResourcePath.hpp"
 #include "Particle.hpp"
-
+#include "Quadtree.hpp"
 
 constexpr int windowWidth{800}, windowHeight{600};
 
@@ -27,7 +27,7 @@ constexpr int windowWidth{800}, windowHeight{600};
 //};
 
 class ParticleSystem{
-    
+    std::shared_ptr<Quadtree> root;
     int mapHeight;
     int mapWidth;
 public:
@@ -50,5 +50,6 @@ public:
     void resetDefaultColor();
 private:
     float dotProduct(sf::Vector2f v1, sf::Vector2f v2);
+    void bruteforce();
 };
 #endif /* ElasticCollisionSim_hpp */

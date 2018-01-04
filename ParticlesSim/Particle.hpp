@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include "ResourcePath.hpp"
+
 #ifndef Particle_hpp
 #define Particle_hpp
 struct Particle{

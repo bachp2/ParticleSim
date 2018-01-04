@@ -24,6 +24,11 @@ void ParticleSystem::resetDefaultColor(){
 
 
 void ParticleSystem::spawn(int n){
+    float midx, midy;
+    midx = windowWidth*1.0f/2;
+    midy = windowHeight*1.0f/2;
+    
+    root = std::make_shared<Quadtree>(0, Boundary(midx, midy, windowWidth, windowHeight));
     for(int i = 0; i < n; ++i){
         /* Randomizer initialization */
         std::random_device rd;
@@ -43,7 +48,49 @@ void ParticleSystem::spawn(int n){
     }
 }
 void ParticleSystem::draw(sf::RenderWindow &window){
+    //bruteforce();
     
+    //quadtree optimization
+    root->clear();
+    for(const auto& p : particleSystem){
+        root->insert(p);
+    }
+    
+    std::vector<ParticlePtr> returnObjPtrs;
+    
+    for(auto j = particleSystem.begin(); j != particleSystem.end(); j++){
+        returnObjPtrs.clear();
+        root->retrieve(returnObjPtrs, *j);
+        for(auto i = returnObjPtrs.begin(); i != returnObjPtrs.end(); i++){
+            if( (*j)->contact(**i) ) {
+                //(*j)->setColor(sf::Color::Red);
+                //(*i)->setColor(sf::Color::Red);
+                collide(*i, *j);
+            }
+            while( (*j)->contact(**i) ){
+                (*j)->shape.move( (*j)->velocity );
+                (*i)->shape.move( (*i)->velocity );
+            }
+        }
+    }
+    
+    //draw on screen
+    for(ParticlePtrIter it = particleSystem.begin(); it != particleSystem.end(); it++){
+        auto p = *it;
+        
+        if( p->left() < 0.0f) p->velocity.x = abs(p->velocity.x);
+        else if ( p->right() > mapWidth ) p->velocity.x = -abs(p->velocity.x);
+        
+        if( p->top() < 0.0f ) p->velocity.y = abs(p->velocity.y);
+        else if( p->bottom() > mapHeight ) p->velocity.y = -abs(p->velocity.y);
+        
+        p->shape.move(p->velocity);
+        
+        window.draw( p->shape );
+    }
+}
+
+void ParticleSystem::bruteforce(){
     //resetDefaultColor();
     for(auto j = particleSystem.begin(); j != particleSystem.end(); j++){
         for(auto i = j+1; i != particleSystem.end(); i++){
@@ -57,19 +104,6 @@ void ParticleSystem::draw(sf::RenderWindow &window){
                 (*i)->shape.move( (*i)->velocity );
             }
         }
-    }
-    for(ParticlePtrIter it = particleSystem.begin(); it != particleSystem.end(); it++){
-        auto p = *it;
-        
-        if( p->left() < 0.0f) p->velocity.x = abs(p->velocity.x);
-        else if ( p->right() > mapWidth ) p->velocity.x = -abs(p->velocity.x);
-        
-        if( p->top() < 0.0f ) p->velocity.y = abs(p->velocity.y);
-        else if( p->bottom() > mapHeight ) p->velocity.y = -abs(p->velocity.y);
-        
-        p->shape.move(p->velocity);
-        
-        window.draw( p->shape );
     }
 }
 

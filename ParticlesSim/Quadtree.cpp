@@ -78,4 +78,11 @@ void Quadtree::insert(Particle::ParticlePtr p){
     }
 }
 
-
+std::vector<Particle::ParticlePtr> Quadtree::retrieve(std::vector<ParticlePtr>& returnObjPtrs, ParticlePtr p){
+    int index = getIndex(p);
+    if (index != -1 && nodes[0] != nullptr) {
+        nodes[index]->retrieve(returnObjPtrs, p);
+    }
+    returnObjPtrs.insert(returnObjPtrs.end(), this->entities.begin(), this->entities.end());
+    return returnObjPtrs;
+}

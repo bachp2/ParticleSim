@@ -39,14 +39,10 @@ public:
         level = pLevel;
         bounds = b;
     };
-    
     void insert(Particle::ParticlePtr p);
-    std::vector<ParticlePtr> retrieve(std::vector<ParticlePtr> returnObjPtrs, ParticlePtr t);
-private:
+    std::vector<ParticlePtr> retrieve(std::vector<ParticlePtr>& returnObjPtrs, ParticlePtr p);
     void clear();
     void split();
     int getIndex(Particle::ParticlePtr p);
-    
-    
 };
 #endif /* Quadtree_hpp */

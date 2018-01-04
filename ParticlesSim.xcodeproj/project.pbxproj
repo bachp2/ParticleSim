@@ -16,7 +16,6 @@
 		421DA3311FFB2BB20098929D /* ElasticCollisionSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 421DA32F1FFB2BB20098929D /* ElasticCollisionSim.cpp */; };
 		421DA3341FFB5FBE0098929D /* NBodySim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 421DA3321FFB5FBE0098929D /* NBodySim.cpp */; };
 		42D651231FFDD51100C4D250 /* Quadtree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42D651211FFDD51100C4D250 /* Quadtree.cpp */; };
-		42D651251FFDFBEC00C4D250 /* Particle.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 42D651241FFDFBEC00C4D250 /* Particle.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -192,7 +191,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				420CA0BE1FF854DA00EECC49 /* main.cpp in Sources */,
-				42D651251FFDFBEC00C4D250 /* Particle.hpp in Sources */,
 				421DA3311FFB2BB20098929D /* ElasticCollisionSim.cpp in Sources */,
 				42D651231FFDD51100C4D250 /* Quadtree.cpp in Sources */,
 				421DA3341FFB5FBE0098929D /* NBodySim.cpp in Sources */,
