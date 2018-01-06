@@ -39,10 +39,14 @@ public:
         level = pLevel;
         bounds = b;
     };
-    void insert(Particle::ParticlePtr p);
-    std::vector<ParticlePtr> retrieve(std::vector<ParticlePtr>& returnObjPtrs, ParticlePtr p);
+    void insert(Particle::ParticlePtr& p);
+    std::vector<ParticlePtr>& retrieve(std::vector<ParticlePtr>& returnObjPtrs, ParticlePtr& p);
     void clear();
     void split();
-    int getIndex(Particle::ParticlePtr p);
+    int getIndex(ParticlePtr p);
+    bool empty(){
+        return nodes[0] == nullptr;
+    }
+    void traverseTree(size_t& sum);
 };
 #endif /* Quadtree_hpp */

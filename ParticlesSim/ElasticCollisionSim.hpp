@@ -48,6 +48,8 @@ public:
     void draw(sf::RenderWindow &window);
     void collide(ParticlePtr& p1, ParticlePtr& p2);
     void resetDefaultColor();
+    void testInsertion();
+    void testInsertion1();
 private:
     float dotProduct(sf::Vector2f v1, sf::Vector2f v2);
     void bruteforce();

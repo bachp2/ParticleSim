@@ -11,6 +11,7 @@
 
 #ifndef Particle_hpp
 #define Particle_hpp
+
 struct Particle{
     typedef std::uniform_real_distribution<> UniRealDist;
     typedef std::uniform_int_distribution<> UniIntDist;

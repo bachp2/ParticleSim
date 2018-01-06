@@ -7,6 +7,7 @@
 //
 
 #include "ElasticCollisionSim.hpp"
+#include <assert.h>
 typedef std::uniform_real_distribution<> UniRealDist;
 typedef std::uniform_int_distribution<> UniIntDist;
 typedef std::shared_ptr<Particle> ParticlePtr;
@@ -52,32 +53,36 @@ void ParticleSystem::draw(sf::RenderWindow &window){
     
     //quadtree optimization
     root->clear();
-    for(const auto& p : particleSystem){
+    //assert(root->empty());
+    for(auto& p : particleSystem){
         root->insert(p);
     }
-    
     std::vector<ParticlePtr> returnObjPtrs;
-    
+
     for(auto j = particleSystem.begin(); j != particleSystem.end(); j++){
         returnObjPtrs.clear();
+        //assert(!returnObjPtrs.empty());
         root->retrieve(returnObjPtrs, *j);
+        //assert(!returnObjPtrs.empty());
+        //std::cout << returnObjPtrs.size() << std::endl;
         for(auto i = returnObjPtrs.begin(); i != returnObjPtrs.end(); i++){
             if( (*j)->contact(**i) ) {
                 //(*j)->setColor(sf::Color::Red);
                 //(*i)->setColor(sf::Color::Red);
+                //std::cout << "collision" << std::endl;
                 collide(*i, *j);
             }
+            else continue;
             while( (*j)->contact(**i) ){
                 (*j)->shape.move( (*j)->velocity );
                 (*i)->shape.move( (*i)->velocity );
             }
         }
     }
-    
+    //std::cout << returnObjPtrs.size() << std::endl;
     //draw on screen
     for(ParticlePtrIter it = particleSystem.begin(); it != particleSystem.end(); it++){
         auto p = *it;
-        
         if( p->left() < 0.0f) p->velocity.x = abs(p->velocity.x);
         else if ( p->right() > mapWidth ) p->velocity.x = -abs(p->velocity.x);
         
@@ -85,12 +90,42 @@ void ParticleSystem::draw(sf::RenderWindow &window){
         else if( p->bottom() > mapHeight ) p->velocity.y = -abs(p->velocity.y);
         
         p->shape.move(p->velocity);
-        
         window.draw( p->shape );
     }
+    
 }
+void ParticleSystem::testInsertion(){
+    root->clear();
+    //assert(root->empty());
+    for(auto& p : particleSystem){
+        root->insert(p);
+    }
+    size_t sum = 0;
+    root->traverseTree(sum);
+    std::cout << sum << std::endl;
+}
+void ParticleSystem::testInsertion1(){
+    ParticlePtr p1( new Particle( 1, 12 ) );
+    ParticlePtr p2( new Particle( 350, 350 ) );
+    ParticlePtr p3( new Particle( 260, 350 ) );
+    root->clear();
+    //assert(root->empty());
+    root->insert(p1);
+    root->insert(p2);
+    root->insert(p3);
+    size_t sum = 0;
+    root->traverseTree(sum);
 
+//    ParticlePtr p4( new Particle( randomPosX(gen), randomPosY(gen) ) );
+//    ParticlePtr p5( new Particle( randomPosX(gen), randomPosY(gen) ) );
+//    ParticlePtr p6( new Particle( randomPosX(gen), randomPosY(gen) ) );
+//    ParticlePtr p7( new Particle( randomPosX(gen), randomPosY(gen) ) );
+//    ParticlePtr p8( new Particle( randomPosX(gen), randomPosY(gen) ) );
+//    ParticlePtr p9( new Particle( randomPosX(gen), randomPosY(gen) ) );
+//    ParticlePtr p10( new Particle( randomPosX(gen), randomPosY(gen) ) );
+}
 void ParticleSystem::bruteforce(){
+    
     //resetDefaultColor();
     for(auto j = particleSystem.begin(); j != particleSystem.end(); j++){
         for(auto i = j+1; i != particleSystem.end(); i++){
@@ -98,10 +133,10 @@ void ParticleSystem::bruteforce(){
                 //(*j)->setColor(sf::Color::Red);
                 //(*i)->setColor(sf::Color::Red);
                 collide(*i, *j);
-            }
-            while( (*j)->contact(**i) ){
-                (*j)->shape.move( (*j)->velocity );
-                (*i)->shape.move( (*i)->velocity );
+                while( (*j)->contact(**i) ){
+                    (*j)->shape.move( (*j)->velocity );
+                    (*i)->shape.move( (*i)->velocity );
+                }
             }
         }
     }

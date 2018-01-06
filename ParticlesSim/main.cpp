@@ -34,6 +34,8 @@ int main(int, char const**)
     ParticleSystem system(window.getSize());
     //Bar piston;
     system.spawn(1000);
+    //system.testInsertion1();
+    //system.testInsertion();
     // Start the game loop
     while (window.isOpen())
     {
