@@ -53,42 +53,50 @@ void ParticleSystem::draw(sf::RenderWindow &window){
     
     //quadtree optimization
     root->clear();
+    //assert(root->MAX_OBJECTS == 10);
     //assert(root->empty());
     for(auto& p : particleSystem){
         root->insert(p);
     }
+
+//    size_t sum = 0;
+//    root->traverseTree(sum);
     std::vector<ParticlePtr> returnObjPtrs;
 
     for(auto j = particleSystem.begin(); j != particleSystem.end(); j++){
+        //std::cout << &(*j) << std::endl;
         returnObjPtrs.clear();
         //assert(!returnObjPtrs.empty());
         root->retrieve(returnObjPtrs, *j);
         //assert(!returnObjPtrs.empty());
-        //std::cout << returnObjPtrs.size() << std::endl;
+        //assert(returnObjPtrs.size() != 1000);
+        //std::cout << *j << " position: " << (*j)->shape.getRadius() << ' ' << (*j)->shape.getPosition().x << std::endl;
         for(auto i = returnObjPtrs.begin(); i != returnObjPtrs.end(); i++){
             if( (*j)->contact(**i) ) {
                 //(*j)->setColor(sf::Color::Red);
                 //(*i)->setColor(sf::Color::Red);
                 //std::cout << "collision" << std::endl;
-                collide(*i, *j);
-            }
-            else continue;
-            while( (*j)->contact(**i) ){
-                (*j)->shape.move( (*j)->velocity );
-                (*i)->shape.move( (*i)->velocity );
+                //collide(*i, *j);
+                std::cout << *i << " position: " << (*i)->shape.getRadius() << ' ' << (*i)->shape.getPosition().x << std::endl;
+                while( (*j)->contact(**i) ){
+                    (*j)->shape.move( (*j)->velocity );
+                    (*i)->shape.move( (*i)->velocity );
+                }
             }
         }
     }
     //std::cout << returnObjPtrs.size() << std::endl;
     //draw on screen
+    //std::cout << &particleSystem[0] << std::endl;
     for(ParticlePtrIter it = particleSystem.begin(); it != particleSystem.end(); it++){
         auto p = *it;
+        //std::cout << p << " position: " << p->shape.getPosition().y << ' ' << p->shape.getPosition().x << std::endl;
         if( p->left() < 0.0f) p->velocity.x = abs(p->velocity.x);
         else if ( p->right() > mapWidth ) p->velocity.x = -abs(p->velocity.x);
-        
+
         if( p->top() < 0.0f ) p->velocity.y = abs(p->velocity.y);
         else if( p->bottom() > mapHeight ) p->velocity.y = -abs(p->velocity.y);
-        
+
         p->shape.move(p->velocity);
         window.draw( p->shape );
     }

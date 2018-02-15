@@ -27,8 +27,8 @@ class Quadtree{
     typedef std::shared_ptr<Particle> ParticlePtr;
     typedef std::vector<ParticlePtr>::iterator ParticlePtrIter;
     typedef std::shared_ptr<Quadtree> QuadtreePtr;
-    const int MAX_OBJECTS = 10;
-    const int MAX_LEVELS = 5;
+    static const int MAX_OBJECTS = 10;
+    static const int MAX_LEVELS = 5;
     int level;
     std::vector<ParticlePtr> entities;
     Boundary bounds;
