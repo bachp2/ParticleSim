@@ -27,10 +27,10 @@ class Quadtree{
     typedef std::shared_ptr<Particle> ParticlePtr;
     typedef std::vector<ParticlePtr>::iterator ParticlePtrIter;
     typedef std::shared_ptr<Quadtree> QuadtreePtr;
-    static const int MAX_OBJECTS = 10;
+    static const int MAX_OBJECTS = 5;
     static const int MAX_LEVELS = 5;
-    int level;
 public:
+    int level;
     int elements_count;
     std::vector<ParticlePtr> entities;
     QuadtreePtr nodes[4];

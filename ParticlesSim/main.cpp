@@ -73,7 +73,7 @@ int main(int, char const**){
     ParticleSystem system(window_size);
     system.spawn(10);
     system.print_particle_position(system.particleSystem);
-    
+    printf("\n");
     //system.root->clear();
     //assert(root->MAX_OBJECTS == 10);
     //assert(root->empty());
@@ -88,6 +88,7 @@ int main(int, char const**){
         root->insert(p);
     }
     system.print_particle_position(root);
+
 //    //    size_t sum = 0;
 //    //    root->traverseTree(sum);
 //    std::vector<std::shared_ptr<Particle>> returnObjPtrs;

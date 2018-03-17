@@ -175,11 +175,25 @@ void ParticleSystem::print_particle_position(std::vector<ParticlePtr>& system){
 }
 
 void ParticleSystem::print_particle_position(std::shared_ptr<Quadtree>& root){
-    assert(root->entities.size() == 10);
+    //assert(root->entities.size() == 10);
+    printf("%p level %d\n", &(*root), root->level);
     print_particle_position(root->entities);
     for (int i = 0; i < 4; i++) {
         if (root->nodes[i] != nullptr) {
-            print_particle_position(root->nodes[i]->entities);
+            switch (i) {
+                case 0:
+                    printf("northwest\n");
+                    break;
+                case 1:
+                    printf("southeast\n");
+                    break;
+                case 2:
+                    printf("southwest\n");
+                    break;
+                case 3:
+                    printf("northeast\n");
+                    break;
+            }
             print_particle_position(root->nodes[i]);
         }
     }
