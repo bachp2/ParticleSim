@@ -27,10 +27,10 @@ constexpr int windowWidth{800}, windowHeight{600};
 //};
 
 class ParticleSystem{
-    std::shared_ptr<Quadtree> root;
     int mapHeight;
     int mapWidth;
 public:
+    std::shared_ptr<Quadtree> root;
     typedef std::uniform_real_distribution<> UniRealDist;
     typedef std::uniform_int_distribution<> UniIntDist;
     typedef std::shared_ptr<Particle> ParticlePtr;
@@ -50,6 +50,8 @@ public:
     void resetDefaultColor();
     void testInsertion();
     void testInsertion1();
+    void print_particle_position(std::vector<ParticlePtr>& system);
+    void print_particle_position(std::shared_ptr<Quadtree>& root);
 private:
     float dotProduct(sf::Vector2f v1, sf::Vector2f v2);
     void bruteforce();

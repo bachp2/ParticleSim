@@ -30,14 +30,17 @@ class Quadtree{
     static const int MAX_OBJECTS = 10;
     static const int MAX_LEVELS = 5;
     int level;
-    std::vector<ParticlePtr> entities;
-    Boundary bounds;
-    QuadtreePtr nodes[4];
 public:
+    int elements_count;
+    std::vector<ParticlePtr> entities;
+    QuadtreePtr nodes[4];
+    Boundary bounds;
+    
     Quadtree() : bounds{0,0,0,0} {};
     Quadtree(int pLevel, Boundary b){
         level = pLevel;
         bounds = b;
+        elements_count = 0;
     };
     void insert(Particle::ParticlePtr& p);
     std::vector<ParticlePtr>& retrieve(std::vector<ParticlePtr>& returnObjPtrs, ParticlePtr& p);
@@ -47,6 +50,7 @@ public:
     bool empty(){
         return nodes[0] == nullptr;
     }
+    void print_tree();
     void traverseTree(size_t& sum);
 };
 #endif /* Quadtree_hpp */

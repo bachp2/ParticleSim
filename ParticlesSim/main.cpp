@@ -18,6 +18,7 @@
 // Here is a small helper for you! Have a look.
 #include "ResourcePath.hpp"
 #include "ElasticCollisionSim.hpp"
+/*
 int main(int, char const**)
 {
     // Create the main window
@@ -64,3 +65,54 @@ int main(int, char const**)
 
     return EXIT_SUCCESS;
 }
+*/
+
+//test main
+int main(int, char const**){
+    sf::Vector2u window_size(1000,1000);
+    ParticleSystem system(window_size);
+    system.spawn(10);
+    system.print_particle_position(system.particleSystem);
+    
+    //system.root->clear();
+    //assert(root->MAX_OBJECTS == 10);
+    //assert(root->empty());
+    auto midx = window_size.x*1.0f/2;
+    auto midy = window_size.y*1.0f/2;
+    
+    auto root = std::make_shared<Quadtree>(0, Boundary(midx, midy, window_size.x, window_size.y));
+    assert(root != nullptr);
+    //insert object through pointer
+    for(auto& p : system.particleSystem){
+        //printf("%p", &(*p));
+        root->insert(p);
+    }
+    system.print_particle_position(root);
+//    //    size_t sum = 0;
+//    //    root->traverseTree(sum);
+//    std::vector<std::shared_ptr<Particle>> returnObjPtrs;
+//
+//    for(auto j = system.particleSystem.begin(); j != system.particleSystem.end(); j++){
+//        //std::cout << &(*j) << std::endl;
+//        returnObjPtrs.clear();
+//        //assert(!returnObjPtrs.empty());
+//        system.root->retrieve(returnObjPtrs, *j);
+//        //assert(!returnObjPtrs.empty());
+//        //assert(returnObjPtrs.size() != 1000);
+//        //std::cout << *j << " position: " << (*j)->shape.getRadius() << ' ' << (*j)->shape.getPosition().x << std::endl;
+//        for(auto i = returnObjPtrs.begin(); i != returnObjPtrs.end(); i++){
+//            if( (*j)->contact(**i) ) {
+//                //(*j)->setColor(sf::Color::Red);
+//                //(*i)->setColor(sf::Color::Red);
+//                //std::cout << "collision" << std::endl;
+//                //collide(*i, *j);
+//                std::cout << *i << " position: " << (*i)->shape.getRadius() << ' ' << (*i)->shape.getPosition().x << std::endl;
+//                while( (*j)->contact(**i) ){
+//                    (*j)->shape.move( (*j)->velocity );
+//                    (*i)->shape.move( (*i)->velocity );
+//                }
+//            }
+//        }
+    return 0;
+}
+

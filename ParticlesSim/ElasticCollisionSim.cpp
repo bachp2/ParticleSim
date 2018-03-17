@@ -48,6 +48,7 @@ void ParticleSystem::spawn(int n){
         //particle.reset();
     }
 }
+
 void ParticleSystem::draw(sf::RenderWindow &window){
     //bruteforce();
     
@@ -165,6 +166,24 @@ void ParticleSystem::collide(ParticlePtr& p1, ParticlePtr& p2){
     p2->velocity = v2prime;
 }
 
+void ParticleSystem::print_particle_position(std::vector<ParticlePtr>& system){
+    int i = 0;
+    for(auto p : system){
+        auto pos = (*p).getPosition();
+        printf("count %d, particle %p, x:%4.1f y:%4.1f\n", i++, &(*p), pos.x, pos.y);
+    }
+}
+
+void ParticleSystem::print_particle_position(std::shared_ptr<Quadtree>& root){
+    assert(root->entities.size() == 10);
+    print_particle_position(root->entities);
+    for (int i = 0; i < 4; i++) {
+        if (root->nodes[i] != nullptr) {
+            print_particle_position(root->nodes[i]->entities);
+            print_particle_position(root->nodes[i]);
+        }
+    }
+}
 //void Bar::draw(sf::RenderWindow &window){
 //    window.draw(line, 2, sf::Lines);
 //}

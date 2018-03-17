@@ -9,7 +9,7 @@
 #include "Quadtree.hpp"
 #include <assert.h>
 void Quadtree::clear(){
-    entities.clear();
+    this->entities.clear();
     for (int i = 0; i < 4; i++) {
         if (nodes[i] != nullptr) {
             nodes[i]->clear();
@@ -54,6 +54,8 @@ int Quadtree::getIndex(Particle::ParticlePtr p){
 }
 
 void Quadtree::insert(Particle::ParticlePtr& p){
+    //go to subnode to insert object
+    //else insert in current node
     if (nodes[0] != nullptr) {
         int index = getIndex(p);
         if (index != -1) {
@@ -61,9 +63,11 @@ void Quadtree::insert(Particle::ParticlePtr& p){
             return;
         }
     }
-    entities.push_back(p);
-    
+    this->entities.push_back(p);
+    //printf("pointer %p, entities size: %d\n", &(*this), (int) entities.size());
+    //check if current node's vector exceeds objects limit
     if (entities.size() > MAX_OBJECTS && level < MAX_LEVELS) {
+        //if current node has no children
         if (nodes[0] == nullptr) split();
         
         int i = 0;
@@ -87,6 +91,7 @@ std::vector<Particle::ParticlePtr>& Quadtree::retrieve(std::vector<Particle::Par
     returnObjPtrs.insert(returnObjPtrs.end(), this->entities.begin(), this->entities.end());
     return returnObjPtrs;
 }
+
 void Quadtree::traverseTree(size_t& sum){
     std::cout << this->entities.size() << " level: " << this->level << " boundary " << this->bounds.midx - bounds.width/2 << "->" << this->bounds.midx + bounds.width/2 << ',' << this->bounds.midy - bounds.height/2 << "->" << this->bounds.midy + bounds.height/2 << std::endl;
     sum += this->entities.size();
@@ -96,3 +101,5 @@ void Quadtree::traverseTree(size_t& sum){
         }
     }
 }
+
+

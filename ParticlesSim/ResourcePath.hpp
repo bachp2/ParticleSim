@@ -37,6 +37,7 @@
 #include <iostream>
 #include <math.h>
 #include <list>
+#include <assert.h>
 constexpr float particleRadius{1.0f};
 
 ////////////////////////////////////////////////////////////

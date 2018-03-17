@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		420CA0BB1FF854DA00EECC49 /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 420CA0BA1FF854DA00EECC49 /* ResourcePath.mm */; };
-		420CA0BE1FF854DA00EECC49 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 420CA0BD1FF854DA00EECC49 /* main.cpp */; };
+		420CA0BB1FF854DA00EECC49 /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 420CA0BA1FF854DA00EECC49 /* ResourcePath.mm */; settings = {COMPILER_FLAGS = "-fno-elide-constructors"; }; };
+		420CA0BE1FF854DA00EECC49 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 420CA0BD1FF854DA00EECC49 /* main.cpp */; settings = {COMPILER_FLAGS = "-fno-elide-constructors"; }; };
 		420CA0C11FF854DA00EECC49 /* cute_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 420CA0C01FF854DA00EECC49 /* cute_image.jpg */; };
 		420CA0C31FF854DA00EECC49 /* nice_music.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 420CA0C21FF854DA00EECC49 /* nice_music.ogg */; };
 		420CA0C51FF854DA00EECC49 /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 420CA0C41FF854DA00EECC49 /* sansation.ttf */; };
 		420CA0C71FF854DA00EECC49 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 420CA0C61FF854DA00EECC49 /* icon.png */; };
-		421DA3311FFB2BB20098929D /* ElasticCollisionSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 421DA32F1FFB2BB20098929D /* ElasticCollisionSim.cpp */; };
-		421DA3341FFB5FBE0098929D /* NBodySim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 421DA3321FFB5FBE0098929D /* NBodySim.cpp */; };
-		42D651231FFDD51100C4D250 /* Quadtree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42D651211FFDD51100C4D250 /* Quadtree.cpp */; };
+		421DA3311FFB2BB20098929D /* ElasticCollisionSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 421DA32F1FFB2BB20098929D /* ElasticCollisionSim.cpp */; settings = {COMPILER_FLAGS = "-fno-elide-constructors"; }; };
+		421DA3341FFB5FBE0098929D /* NBodySim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 421DA3321FFB5FBE0098929D /* NBodySim.cpp */; settings = {COMPILER_FLAGS = "-fno-elide-constructors"; }; };
+		42D651231FFDD51100C4D250 /* Quadtree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42D651211FFDD51100C4D250 /* Quadtree.cpp */; settings = {COMPILER_FLAGS = "-fno-elide-constructors"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -293,6 +293,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = "ParticlesSim/ParticlesSim-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -303,6 +304,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = "ParticlesSim/ParticlesSim-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
