@@ -88,32 +88,17 @@ int main(int, char const**){
         root->insert(p);
     }
     system.print_particle_position(root);
+    printf("\n");
+    std::vector<std::shared_ptr<Particle>> returnObjPtrs;
 
-//    //    size_t sum = 0;
-//    //    root->traverseTree(sum);
-//    std::vector<std::shared_ptr<Particle>> returnObjPtrs;
-//
-//    for(auto j = system.particleSystem.begin(); j != system.particleSystem.end(); j++){
-//        //std::cout << &(*j) << std::endl;
-//        returnObjPtrs.clear();
-//        //assert(!returnObjPtrs.empty());
-//        system.root->retrieve(returnObjPtrs, *j);
-//        //assert(!returnObjPtrs.empty());
-//        //assert(returnObjPtrs.size() != 1000);
-//        //std::cout << *j << " position: " << (*j)->shape.getRadius() << ' ' << (*j)->shape.getPosition().x << std::endl;
-//        for(auto i = returnObjPtrs.begin(); i != returnObjPtrs.end(); i++){
-//            if( (*j)->contact(**i) ) {
-//                //(*j)->setColor(sf::Color::Red);
-//                //(*i)->setColor(sf::Color::Red);
-//                //std::cout << "collision" << std::endl;
-//                //collide(*i, *j);
-//                std::cout << *i << " position: " << (*i)->shape.getRadius() << ' ' << (*i)->shape.getPosition().x << std::endl;
-//                while( (*j)->contact(**i) ){
-//                    (*j)->shape.move( (*j)->velocity );
-//                    (*i)->shape.move( (*i)->velocity );
-//                }
-//            }
-//        }
+    for(auto j = system.particleSystem.begin(); j != system.particleSystem.end(); j++){
+        //std::cout << &(*j) << std::endl;
+        returnObjPtrs.clear();
+        system.root->retrieve(returnObjPtrs, *j);
+        auto pos = (*j)->getPosition();
+        printf("checking particle %p, x:%4.1f y:%4.1f\n", &(**j), pos.x, pos.y);
+        system.print_particle_position(returnObjPtrs);
+    }
+    
     return 0;
 }
-
