@@ -68,7 +68,9 @@ void ParticleSystem::draw(sf::RenderWindow &window){
         //std::cout << &(*j) << std::endl;
         returnObjPtrs.clear();
         //assert(!returnObjPtrs.empty());
-        root->retrieve(returnObjPtrs, *j);
+        returnObjPtrs = root->retrieve(returnObjPtrs, *j);
+        auto duplicate = std::find(returnObjPtrs.begin(), returnObjPtrs.end(), *j);
+        if(duplicate != returnObjPtrs.end()) returnObjPtrs.erase(duplicate);
         //assert(!returnObjPtrs.empty());
         //assert(returnObjPtrs.size() != 1000);
         //std::cout << *j << " position: " << (*j)->shape.getRadius() << ' ' << (*j)->shape.getPosition().x << std::endl;
@@ -77,8 +79,8 @@ void ParticleSystem::draw(sf::RenderWindow &window){
                 //(*j)->setColor(sf::Color::Red);
                 //(*i)->setColor(sf::Color::Red);
                 //std::cout << "collision" << std::endl;
-                //collide(*i, *j);
-                std::cout << *i << " position: " << (*i)->shape.getRadius() << ' ' << (*i)->shape.getPosition().x << std::endl;
+                collide(*i, *j);
+                //std::cout << *i << " position: " << (*i)->shape.getRadius() << ' ' << (*i)->shape.getPosition().x << std::endl;
                 while( (*j)->contact(**i) ){
                     (*j)->shape.move( (*j)->velocity );
                     (*i)->shape.move( (*i)->velocity );
@@ -101,8 +103,8 @@ void ParticleSystem::draw(sf::RenderWindow &window){
         p->shape.move(p->velocity);
         window.draw( p->shape );
     }
-    
 }
+
 void ParticleSystem::testInsertion(){
     root->clear();
     //assert(root->empty());
@@ -169,7 +171,7 @@ void ParticleSystem::collide(ParticlePtr& p1, ParticlePtr& p2){
 void ParticleSystem::print_particle_position(std::vector<ParticlePtr>& system){
     int i = 0;
     for(auto p : system){
-        auto pos = (*p).getPosition();
+        auto pos = p->getPosition();
         printf("count %d, particle %p, x:%4.1f y:%4.1f\n", i++, &(*p), pos.x, pos.y);
     }
 }

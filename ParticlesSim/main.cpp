@@ -18,7 +18,7 @@
 // Here is a small helper for you! Have a look.
 #include "ResourcePath.hpp"
 #include "ElasticCollisionSim.hpp"
-/*
+
 int main(int, char const**)
 {
     // Create the main window
@@ -65,13 +65,13 @@ int main(int, char const**)
 
     return EXIT_SUCCESS;
 }
-*/
-
+ 
 //test main
+/*
 int main(int, char const**){
     sf::Vector2u window_size(1000,1000);
     ParticleSystem system(window_size);
-    system.spawn(10);
+    system.spawn(100);
     system.print_particle_position(system.particleSystem);
     printf("\n");
     //system.root->clear();
@@ -80,25 +80,29 @@ int main(int, char const**){
     auto midx = window_size.x*1.0f/2;
     auto midy = window_size.y*1.0f/2;
     
-    auto root = std::make_shared<Quadtree>(0, Boundary(midx, midy, window_size.x, window_size.y));
-    assert(root != nullptr);
+    system.root = std::make_shared<Quadtree>(0, Boundary(midx, midy, window_size.x, window_size.y));
+    assert(system.root != nullptr);
     //insert object through pointer
     for(auto& p : system.particleSystem){
         //printf("%p", &(*p));
-        root->insert(p);
+        system.root->insert(p);
     }
-    system.print_particle_position(root);
+    system.print_particle_position(system.root);
     printf("\n");
     std::vector<std::shared_ptr<Particle>> returnObjPtrs;
 
     for(auto j = system.particleSystem.begin(); j != system.particleSystem.end(); j++){
         //std::cout << &(*j) << std::endl;
         returnObjPtrs.clear();
-        system.root->retrieve(returnObjPtrs, *j);
+        returnObjPtrs = system.root->retrieve(returnObjPtrs, *j);
+        auto duplicate = std::find(returnObjPtrs.begin(), returnObjPtrs.end(), *j);
+        if(duplicate != returnObjPtrs.end()) returnObjPtrs.erase(duplicate);
         auto pos = (*j)->getPosition();
         printf("checking particle %p, x:%4.1f y:%4.1f\n", &(**j), pos.x, pos.y);
         system.print_particle_position(returnObjPtrs);
+        printf("\n");
     }
     
     return 0;
 }
+ */
