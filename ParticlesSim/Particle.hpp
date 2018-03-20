@@ -12,6 +12,7 @@
 #ifndef Particle_hpp
 #define Particle_hpp
 
+const int MAX_RADIUS = 7;
 struct Particle{
     typedef std::uniform_real_distribution<> UniRealDist;
     typedef std::uniform_int_distribution<> UniIntDist;
@@ -62,7 +63,8 @@ struct Particle{
         this->shape.setRadius(r);
     }
     void consume(ParticlePtr& p){
-        this->set_radius( p->radius() + this->radius() );
+        auto new_r = p->radius() + this->radius();
+        if(new_r <= MAX_RADIUS) this->set_radius( new_r );
         this->mass += p->mass;
         p->isDestroyed = true;
     }

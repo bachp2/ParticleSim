@@ -9,6 +9,7 @@
 #include "NBodySim.hpp"
 
 void NBody::spawn(int n){
+    int radii[4] = {1, 2, 3, 5};
     for(int i = 0; i < n; ++i){
         std::random_device rd;
         std::mt19937 gen(rd());
@@ -19,14 +20,16 @@ void NBody::spawn(int n){
         float r = randomRad(gen);
         UniRealDist randomPosX( r, mapWidth - r );
         UniRealDist randomPosY( r, mapHeight - r );
+        std::random_shuffle(&radii[0], &radii[3]);
         
-        ParticlePtr b( new Particle(randomPosX(gen), randomPosY(gen), r, r*100 ));
+        ParticlePtr b( new Particle(randomPosX(gen), randomPosY(gen), (float) radii[0], r*5 ));
         sf::Vector2f velocity(randomVel(gen), randomVel(gen));
         if(velocity.x == 0.0f && velocity.y == 0.0f) {
             return;
         }
         b->velocity = velocity;
         nbodySystem.push_back(b);
+        
         //init Barnes_hut tree
         float midx, midy;
         midx = windowWidth*1.0f/2;
@@ -36,7 +39,7 @@ void NBody::spawn(int n){
 }
 void NBody::applyForce(ParticlePtr& cueball, ParticlePtr& pocketball)
 {
-    float EPS = 15;
+    float EPS = 100;
     auto d = pocketball->getPosition() - cueball->getPosition();
     auto dist = pocketball->get_distance(cueball);
     float F = (G * pocketball->mass * cueball->mass) / (dist*dist + EPS);

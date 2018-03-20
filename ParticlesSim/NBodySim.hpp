@@ -17,7 +17,7 @@
 class NBody
 {
     const float dt = 1.0f/60.0f;
-    const float G = 45.7f;
+    const float G = 40.f;
     int mapHeight, mapWidth;
     std::shared_ptr<Quadtree> root;
     typedef std::uniform_real_distribution<> UniRealDist;
