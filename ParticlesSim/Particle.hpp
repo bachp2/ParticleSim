@@ -21,6 +21,9 @@ struct Particle{
     sf::CircleShape shape;
     bool isDestroyed;
     sf::Vector2f velocity;
+    sf::Vector2f force;
+    float mass;
+    
     //sf::Vector2f acceleration;
     Particle() : isDestroyed{false} {};
     Particle(float x, float y){
@@ -31,6 +34,17 @@ struct Particle{
         shape.setFillColor(sf::Color::Blue);
         shape.setOrigin(particleRadius, particleRadius);
     }
+    
+    Particle(float x, float y, float r, float m){
+        isDestroyed = false;
+        shape.setPosition(x, y);
+        shape.setRadius(r);
+        shape.setFillColor(sf::Color::Blue);
+        shape.setOrigin(particleRadius, particleRadius);
+        mass = m;
+        force = sf::Vector2f(0,0);
+    }
+    
     float x() const {
         return this->shape.getPosition().x;
     }
@@ -70,6 +84,21 @@ struct Particle{
     bool contact(Particle& p){
         sf::Vector2f dxdy = this->getPosition() - p.getPosition();
         return pow(dxdy.x,2) + pow(dxdy.y,2) < pow(this->shape.getRadius() + p.shape.getRadius(), 2);
+    }
+    //square distance from a point
+    float get_square_distance(float ox , float oy){
+        auto particle_pos = shape.getPosition();
+        return pow(particle_pos.x - ox,2) + pow(particle_pos.y - oy,2);
+    }
+    
+    float get_square_distance(ParticlePtr& p){
+        auto particle1_pos = this->getPosition();
+        auto particle2_pos = p->getPosition();
+        return pow(particle1_pos.x - particle2_pos.x,2) + pow(particle1_pos.y - particle2_pos.y,2);
+    }
+    
+    float get_distance(ParticlePtr& p){
+        return sqrt(get_square_distance(p));
     }
     
     void setColor(sf::Color c){

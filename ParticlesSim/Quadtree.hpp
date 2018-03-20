@@ -27,20 +27,17 @@ class Quadtree{
     typedef std::shared_ptr<Particle> ParticlePtr;
     typedef std::vector<ParticlePtr>::iterator ParticlePtrIter;
     typedef std::shared_ptr<Quadtree> QuadtreePtr;
-    static const int MAX_OBJECTS = 50;
-    static const int MAX_LEVELS = 10;
+    static const int MAX_OBJECTS = 20;
+    static const int MAX_LEVELS = 30;
 public:
     int level;
-    int elements_count;
     std::vector<ParticlePtr> entities;
     QuadtreePtr nodes[4];
     Boundary bounds;
-    
     Quadtree() : bounds{0,0,0,0} {};
     Quadtree(int pLevel, Boundary b){
         level = pLevel;
         bounds = b;
-        elements_count = 0;
     };
     void insert(Particle::ParticlePtr& p);
     std::vector<ParticlePtr>& retrieve(std::vector<ParticlePtr>& returnObjPtrs, ParticlePtr& p);

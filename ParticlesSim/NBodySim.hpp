@@ -14,53 +14,31 @@
 #include "ResourcePath.hpp"
 #include "Particle.hpp"
 
-struct Body : Particle
-{
-    float mass;
-    sf::Vector2f acceleration;
-    Body(float x, float y, float r) : acceleration{0.0f,0.0f}, mass{1.0f}
-    {
-        isDestroyed = false;
-        shape.setPosition(x, y);
-        shape.setRadius(r);
-        shape.setFillColor(sf::Color(169,169,169));
-        shape.setOrigin(r, r);
-    };
-    Body(float x, float y, float r, float m) : acceleration{0.0f,0.0f}
-    {
-        mass = m;
-        isDestroyed = false;
-        shape.setPosition(x, y);
-        shape.setRadius(r);
-        shape.setFillColor(sf::Color(169,169,169));
-        shape.setOrigin(r, r);
-    };
-};
-
 class NBody
 {
+    const float G = 45.7f;
     int mapHeight, mapWidth;
+    std::shared_ptr<Quadtree> root;
     typedef std::uniform_real_distribution<> UniRealDist;
     typedef std::uniform_int_distribution<> UniIntDist;
-    typedef std::shared_ptr<Body> BodyPtr;
-    typedef std::vector<BodyPtr>::iterator BodyPtrIter;
-    
-    std::vector<BodyPtr> nbodySystem;
+    typedef std::shared_ptr<Particle> ParticlePtr;
+    typedef std::vector<ParticlePtr>::iterator ParticlePtrIter;
+    std::vector<ParticlePtr> nbodySystem;
 public:
     NBody(sf::Vector2u canvasSize){
         mapHeight = canvasSize.y;
         mapWidth = canvasSize.x;
         //std::cout << mapWidth << ' ' << mapHeight << std::endl;
     };
-    sf::Vector2f getUnitDistanceVector(BodyPtr& b1, BodyPtr& b2){
-        float distance = b2->getDistance(*b1);
-        return (b2->getPosition() - b1->getPosition())/distance;
-    };
+    
     void spawn(int n);
     void update();
     void draw(sf::RenderWindow &window);
-    void collide(BodyPtr& b1, BodyPtr& b2);
-    void applyGravAcc2System();
+    void applyForce(ParticlePtr& particle, std::vector<ParticlePtr>& particles_in_range);
     
+    ParticlePtr& return_smaller_particle(ParticlePtr& p1, ParticlePtr& p2){
+        if(p1->mass >= p2->mass) return p2;
+        else return p1;
+    };
 };
 #endif /* NBodySim_hpp */
