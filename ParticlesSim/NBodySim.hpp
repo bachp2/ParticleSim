@@ -36,6 +36,12 @@ public:
     void update_physics();
     void draw(sf::RenderWindow &window);
     void applyForce(ParticlePtr& cueball, ParticlePtr& pocketball);
+    void clean_up_dead_particles(){
+        nbodySystem.erase(
+                     std::remove_if(nbodySystem.begin(), nbodySystem.end(),
+                                    [](const ParticlePtr & o) { return o->isDestroyed; }),
+                     nbodySystem.end());
+    }
     ParticlePtr& return_smaller_particle(ParticlePtr& p1, ParticlePtr& p2){
         if(p1->mass >= p2->mass) return p2;
         else return p1;

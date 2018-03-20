@@ -61,9 +61,10 @@ struct Particle{
     void set_radius(float r){
         this->shape.setRadius(r);
     }
-    void consume(ParticlePtr p){
+    void consume(ParticlePtr& p){
         this->set_radius( p->radius() + this->radius() );
         this->mass += p->mass;
+        p->isDestroyed = true;
     }
     void reset_force(){
         force.x = 0; force.y = 0;

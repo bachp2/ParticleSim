@@ -51,10 +51,8 @@ void NBody::update_physics(){
     }
     std::vector<ParticlePtr> returnObjPtrs;
     
-    auto j = nbodySystem.begin();
-    while(j != nbodySystem.end()){
+    for(auto j = nbodySystem.begin(); j != nbodySystem.end(); ++j){
         //std::cout << &(*j) << std::endl;
-        bool erased_flag = false;
         //assert(*j != nullptr);
         (*j)->reset_force();
         returnObjPtrs.clear();
@@ -70,19 +68,11 @@ void NBody::update_physics(){
                 else{
                     (*i)->consume(*j);
                 }
-                //assert(smaller_particle != nullptr);
-                auto consumed_particle = std::find(nbodySystem.begin(), nbodySystem.end(), smaller_particle);
-                if(consumed_particle != returnObjPtrs.end()) {
-                    nbodySystem.erase(consumed_particle);
-                    erased_flag = true;
-                }
             }
-            else applyForce(*j, *i);
-        }
-        if(!erased_flag){
-            j++;
+            else if( !(*j)->isDestroyed || !(*i)->isDestroyed ) applyForce(*j, *i);
         }
     }
+    clean_up_dead_particles();
     for(const auto& p : nbodySystem){
         p->update_velocity(dt);
     }
