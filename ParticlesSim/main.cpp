@@ -18,50 +18,60 @@
 // Here is a small helper for you! Have a look.
 #include "ResourcePath.hpp"
 #include "ElasticCollisionSim.hpp"
+#include "NBodySim.hpp"
+namespace sim{
+    void elastic_collision(){
+        // Create the main window
+        sf::RenderWindow window(sf::VideoMode{windowWidth,windowHeight}, "Particles Simulation", sf::Style::Titlebar | sf::Style::Close);
+        window.setFramerateLimit(120);
+        
+        // Set the Icon
+        sf::Image icon;
+        if (!icon.loadFromFile(resourcePath() + "icon.png")) {
+            return EXIT_FAILURE;
+        }
+        window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+        
+        ParticleSystem system(window.getSize());
+        //Bar piston;
+        system.spawn(1000);
+        //system.testInsertion1();
+        //system.testInsertion();
+        // Start the game loop
+        while (window.isOpen())
+        {
+            // Process events
+            sf::Event event;
+            while (window.pollEvent(event))
+            {
+                // Close window: exit
+                if (event.type == sf::Event::Closed) {
+                    window.close();
+                }
+                
+                // Escape pressed: exit
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+                    window.close();
+                }
+            }
+            // Clear screen
+            window.clear(sf::Color::White);
+            //draw particles
+            //piston.draw(window);
+            system.draw(window);
+            // Update the window
+            window.display();
+        }
+    };
+    
+    void nbody_sim(){
+        
+    }
+}
 
 int main(int, char const**)
 {
-    // Create the main window
-    sf::RenderWindow window(sf::VideoMode{windowWidth,windowHeight}, "Particles Simulation", sf::Style::Titlebar | sf::Style::Close);
-    window.setFramerateLimit(120);
-    
-    // Set the Icon
-    sf::Image icon;
-    if (!icon.loadFromFile(resourcePath() + "icon.png")) {
-        return EXIT_FAILURE;
-    }
-    window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
-
-    ParticleSystem system(window.getSize());
-    //Bar piston;
-    system.spawn(1000);
-    //system.testInsertion1();
-    //system.testInsertion();
-    // Start the game loop
-    while (window.isOpen())
-    {
-        // Process events
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            // Close window: exit
-            if (event.type == sf::Event::Closed) {
-                window.close();
-            }
-
-            // Escape pressed: exit
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
-                window.close();
-            }
-        }
-        // Clear screen
-        window.clear(sf::Color::White);
-        //draw particles
-        //piston.draw(window);
-        system.draw(window);
-        // Update the window
-        window.display();
-    }
+    sim::elastic_collision();
 
     return EXIT_SUCCESS;
 }

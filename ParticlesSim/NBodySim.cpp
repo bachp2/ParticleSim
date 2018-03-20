@@ -47,21 +47,14 @@ void NBody::update(){
     for(auto& p : nbodySystem){
         root->insert(p);
     }
-    
-    //    size_t sum = 0;
-    //    root->traverseTree(sum);
     std::vector<ParticlePtr> returnObjPtrs;
     
     for(auto j = nbodySystem.begin(); j != nbodySystem.end(); j++){
         //std::cout << &(*j) << std::endl;
         returnObjPtrs.clear();
-        //assert(!returnObjPtrs.empty());
         returnObjPtrs = root->retrieve(returnObjPtrs, *j);
         auto duplicate = std::find(returnObjPtrs.begin(), returnObjPtrs.end(), *j);
         if(duplicate != returnObjPtrs.end()) returnObjPtrs.erase(duplicate);
-        //assert(!returnObjPtrs.empty());
-        //assert(returnObjPtrs.size() != 1000);
-        //std::cout << *j << " position: " << (*j)->shape.getRadius() << ' ' << (*j)->shape.getPosition().x << std::endl;
         for(auto i = returnObjPtrs.begin(); i != returnObjPtrs.end(); i++){
             
             if( (*j)->contact(**i) ) {
