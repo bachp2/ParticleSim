@@ -19,6 +19,44 @@
 #include "ResourcePath.hpp"
 #include "ElasticCollisionSim.hpp"
 #include "NBodySim.hpp"
+namespace test{
+    void run_test(){
+        sf::Vector2u window_size(1000,1000);
+        ParticleSystem system(window_size);
+        system.spawn(100);
+        system.print_particle_position(system.particleSystem);
+        printf("\n");
+        //system.root->clear();
+        //assert(root->MAX_OBJECTS == 10);
+        //assert(root->empty());
+        auto midx = window_size.x*1.0f/2;
+        auto midy = window_size.y*1.0f/2;
+        
+        system.root = std::make_shared<Quadtree>(0, Boundary(midx, midy, window_size.x, window_size.y));
+        assert(system.root != nullptr);
+        //insert object through pointer
+        for(auto& p : system.particleSystem){
+            //printf("%p", &(*p));
+            system.root->insert(p);
+        }
+        system.print_particle_position(system.root);
+        printf("\n");
+        std::vector<std::shared_ptr<Particle>> returnObjPtrs;
+        
+        for(auto j = system.particleSystem.begin(); j != system.particleSystem.end(); j++){
+            //std::cout << &(*j) << std::endl;
+            returnObjPtrs.clear();
+            returnObjPtrs = system.root->retrieve(returnObjPtrs, *j);
+            auto duplicate = std::find(returnObjPtrs.begin(), returnObjPtrs.end(), *j);
+            if(duplicate != returnObjPtrs.end()) returnObjPtrs.erase(duplicate);
+            auto pos = (*j)->getPosition();
+            printf("checking particle %p, x:%4.1f y:%4.1f\n", &(**j), pos.x, pos.y);
+            system.print_particle_position(returnObjPtrs);
+            printf("\n");
+        }
+    }
+}
+
 namespace sim{
     void elastic_collision(){
         // Create the main window
@@ -64,55 +102,16 @@ namespace sim{
         }
     };
     
-    void nbody_sim(){
+    void nbody(){
         
     }
 }
 
 int main(int, char const**)
 {
+    //test::run_test();
     sim::elastic_collision();
 
     return EXIT_SUCCESS;
 }
  
-//test main
-/*
-int main(int, char const**){
-    sf::Vector2u window_size(1000,1000);
-    ParticleSystem system(window_size);
-    system.spawn(100);
-    system.print_particle_position(system.particleSystem);
-    printf("\n");
-    //system.root->clear();
-    //assert(root->MAX_OBJECTS == 10);
-    //assert(root->empty());
-    auto midx = window_size.x*1.0f/2;
-    auto midy = window_size.y*1.0f/2;
-    
-    system.root = std::make_shared<Quadtree>(0, Boundary(midx, midy, window_size.x, window_size.y));
-    assert(system.root != nullptr);
-    //insert object through pointer
-    for(auto& p : system.particleSystem){
-        //printf("%p", &(*p));
-        system.root->insert(p);
-    }
-    system.print_particle_position(system.root);
-    printf("\n");
-    std::vector<std::shared_ptr<Particle>> returnObjPtrs;
-
-    for(auto j = system.particleSystem.begin(); j != system.particleSystem.end(); j++){
-        //std::cout << &(*j) << std::endl;
-        returnObjPtrs.clear();
-        returnObjPtrs = system.root->retrieve(returnObjPtrs, *j);
-        auto duplicate = std::find(returnObjPtrs.begin(), returnObjPtrs.end(), *j);
-        if(duplicate != returnObjPtrs.end()) returnObjPtrs.erase(duplicate);
-        auto pos = (*j)->getPosition();
-        printf("checking particle %p, x:%4.1f y:%4.1f\n", &(**j), pos.x, pos.y);
-        system.print_particle_position(returnObjPtrs);
-        printf("\n");
-    }
-    
-    return 0;
-}
- */
