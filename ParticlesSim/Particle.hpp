@@ -57,6 +57,17 @@ struct Particle{
     float radius() const {
         return this->shape.getRadius();
     }
+    
+    void set_radius(float r){
+        this->shape.setRadius(r);
+    }
+    void consume(ParticlePtr p){
+        this->set_radius( p->radius() + this->radius() );
+        this->mass += p->mass;
+    }
+    void reset_force(){
+        force.x = 0; force.y = 0;
+    }
     void setPosition(sf::Vector2f& newPos){
         shape.setPosition(newPos);
     }
@@ -79,6 +90,10 @@ struct Particle{
     
     float getDistance(Particle& p) const {
         return sqrt( pow( p.x()-this->x(), 2) + pow( p.y()-this->y(), 2) );
+    }
+    
+    void update_velocity(float dt){
+        velocity += dt * force / mass;
     }
     
     bool contact(Particle& p){

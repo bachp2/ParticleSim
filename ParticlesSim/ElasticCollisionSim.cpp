@@ -105,36 +105,6 @@ void ParticleSystem::draw(sf::RenderWindow &window){
     }
 }
 
-void ParticleSystem::testInsertion(){
-    root->clear();
-    //assert(root->empty());
-    for(auto& p : particleSystem){
-        root->insert(p);
-    }
-    size_t sum = 0;
-    root->traverseTree(sum);
-    std::cout << sum << std::endl;
-}
-void ParticleSystem::testInsertion1(){
-    ParticlePtr p1( new Particle( 1, 12 ) );
-    ParticlePtr p2( new Particle( 350, 350 ) );
-    ParticlePtr p3( new Particle( 260, 350 ) );
-    root->clear();
-    //assert(root->empty());
-    root->insert(p1);
-    root->insert(p2);
-    root->insert(p3);
-    size_t sum = 0;
-    root->traverseTree(sum);
-
-//    ParticlePtr p4( new Particle( randomPosX(gen), randomPosY(gen) ) );
-//    ParticlePtr p5( new Particle( randomPosX(gen), randomPosY(gen) ) );
-//    ParticlePtr p6( new Particle( randomPosX(gen), randomPosY(gen) ) );
-//    ParticlePtr p7( new Particle( randomPosX(gen), randomPosY(gen) ) );
-//    ParticlePtr p8( new Particle( randomPosX(gen), randomPosY(gen) ) );
-//    ParticlePtr p9( new Particle( randomPosX(gen), randomPosY(gen) ) );
-//    ParticlePtr p10( new Particle( randomPosX(gen), randomPosY(gen) ) );
-}
 void ParticleSystem::bruteforce(){
     
     //resetDefaultColor();

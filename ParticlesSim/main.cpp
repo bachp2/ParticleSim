@@ -20,7 +20,7 @@
 #include "ElasticCollisionSim.hpp"
 #include "NBodySim.hpp"
 namespace test{
-    void run_test(){
+    void run_collision_test(){
         sf::Vector2u window_size(1000,1000);
         ParticleSystem system(window_size);
         system.spawn(100);
@@ -55,6 +55,9 @@ namespace test{
             printf("\n");
         }
     }
+    void run_nbody_test(){
+    
+    }
 }
 
 namespace sim{
@@ -73,8 +76,6 @@ namespace sim{
         ParticleSystem system(window.getSize());
         //Bar piston;
         system.spawn(1000);
-        //system.testInsertion1();
-        //system.testInsertion();
         // Start the game loop
         while (window.isOpen())
         {
@@ -103,15 +104,44 @@ namespace sim{
     };
     
     void nbody(){
+        // Create the main window
+        sf::RenderWindow window(sf::VideoMode{windowWidth,windowHeight}, "Particles Simulation", sf::Style::Titlebar | sf::Style::Close);
+        window.setFramerateLimit(60);
         
+        NBody nbody_system(window.getSize());
+        nbody_system.spawn(100);
+        // Start the game loop
+        while (window.isOpen())
+        {
+            // Process events
+            sf::Event event;
+            while (window.pollEvent(event))
+            {
+                // Close window: exit
+                if (event.type == sf::Event::Closed) {
+                    window.close();
+                }
+                
+                // Escape pressed: exit
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+                    window.close();
+                }
+            }
+            // Clear screen
+            window.clear(sf::Color::White);
+            //draw particles
+            nbody_system.draw(window);
+            // Update the window
+            window.display();
+        }
     }
 }
 
 int main(int, char const**)
 {
     //test::run_test();
-    sim::elastic_collision();
-
+    //sim::elastic_collision();
+    sim::nbody();
     return EXIT_SUCCESS;
 }
- 
+

@@ -16,6 +16,7 @@
 
 class NBody
 {
+    const float dt = 1.0f/60.0f;
     const float G = 45.7f;
     int mapHeight, mapWidth;
     std::shared_ptr<Quadtree> root;
@@ -32,10 +33,9 @@ public:
     };
     
     void spawn(int n);
-    void update();
+    void update_physics();
     void draw(sf::RenderWindow &window);
-    void applyForce(ParticlePtr& particle, std::vector<ParticlePtr>& particles_in_range);
-    
+    void applyForce(ParticlePtr& cueball, ParticlePtr& pocketball);
     ParticlePtr& return_smaller_particle(ParticlePtr& p1, ParticlePtr& p2){
         if(p1->mass >= p2->mass) return p2;
         else return p1;

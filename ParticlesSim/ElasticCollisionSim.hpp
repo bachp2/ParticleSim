@@ -48,8 +48,6 @@ public:
     void draw(sf::RenderWindow &window);
     void collide(ParticlePtr& p1, ParticlePtr& p2);
     void resetDefaultColor();
-    void testInsertion();
-    void testInsertion1();
     void print_particle_position(std::vector<ParticlePtr>& system);
     void print_particle_position(std::shared_ptr<Quadtree>& root);
 private:

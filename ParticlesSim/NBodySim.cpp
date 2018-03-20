@@ -27,52 +27,71 @@ void NBody::spawn(int n){
         }
         b->velocity = velocity;
         nbodySystem.push_back(b);
-        std::shared_ptr<Quadtree> root;
+        //init Barnes_hut tree
+        float midx, midy;
+        midx = windowWidth*1.0f/2;
+        midy = windowHeight*1.0f/2;
+        root = std::make_shared<Quadtree>(0, Boundary(midx, midy, windowWidth, windowHeight));
     }
 }
-void NBody::applyForce(ParticlePtr& p, std::vector<ParticlePtr>& particles_in_range)
+void NBody::applyForce(ParticlePtr& cueball, ParticlePtr& pocketball)
 {
     float EPS = 15;
-    p->force.x=0 ; p->force.y=0;
-    for(auto o : particles_in_range){
-        auto d = o->getPosition() - p->getPosition();
-        auto dist = p->get_distance(o);
-        float F = (G * p->mass * o->mass) / (dist*dist + EPS);
-        p->force.x = F * d.x / dist;
-        p->force.y = F * d.y / dist;
-    }
+    auto d = pocketball->getPosition() - cueball->getPosition();
+    auto dist = pocketball->get_distance(cueball);
+    float F = (G * pocketball->mass * cueball->mass) / (dist*dist + EPS);
+    cueball->force.x = F * d.x / dist;
+    cueball->force.y = F * d.y / dist;
 }
-void NBody::update(){
+
+void NBody::update_physics(){
     root->clear();
     for(auto& p : nbodySystem){
         root->insert(p);
     }
     std::vector<ParticlePtr> returnObjPtrs;
     
-    for(auto j = nbodySystem.begin(); j != nbodySystem.end(); j++){
+    auto j = nbodySystem.begin();
+    while(j != nbodySystem.end()){
         //std::cout << &(*j) << std::endl;
+        bool erased_flag = false;
+        //assert(*j != nullptr);
+        (*j)->reset_force();
         returnObjPtrs.clear();
         returnObjPtrs = root->retrieve(returnObjPtrs, *j);
         auto duplicate = std::find(returnObjPtrs.begin(), returnObjPtrs.end(), *j);
         if(duplicate != returnObjPtrs.end()) returnObjPtrs.erase(duplicate);
         for(auto i = returnObjPtrs.begin(); i != returnObjPtrs.end(); i++){
-            
             if( (*j)->contact(**i) ) {
                 auto smaller_particle = return_smaller_particle(*j, *i);
                 if(smaller_particle == *i){
-                    (*j)->mass += smaller_particle->mass;
+                    (*j)->consume(*i);
                 }
                 else{
-                    (*i)->mass += smaller_particle->mass;
+                    (*i)->consume(*j);
                 }
+                //assert(smaller_particle != nullptr);
                 auto consumed_particle = std::find(nbodySystem.begin(), nbodySystem.end(), smaller_particle);
-                if(consumed_particle != returnObjPtrs.end()) nbodySystem.erase(consumed_particle);
+                if(consumed_particle != returnObjPtrs.end()) {
+                    nbodySystem.erase(consumed_particle);
+                    erased_flag = true;
+                }
             }
+            else applyForce(*j, *i);
+        }
+        if(!erased_flag){
+            j++;
         }
     }
+    for(const auto& p : nbodySystem){
+        p->update_velocity(dt);
+    }
+
 }
 
 void NBody::draw(sf::RenderWindow &window){
+    update_physics();
+    
     for(ParticlePtrIter it = nbodySystem.begin(); it != nbodySystem.end(); it++){
         auto p = *it;
         if( p->left() < 0.0f) p->velocity.x = abs(p->velocity.x);
@@ -84,5 +103,4 @@ void NBody::draw(sf::RenderWindow &window){
         p->shape.move(p->velocity);
         window.draw( p->shape );
     }
-    
 }
