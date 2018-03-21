@@ -13,18 +13,17 @@
 #define Particle_hpp
 
 const int MAX_RADIUS = 7;
+
 struct Particle{
     typedef std::uniform_real_distribution<> UniRealDist;
     typedef std::uniform_int_distribution<> UniIntDist;
     typedef std::shared_ptr<Particle> ParticlePtr;
     typedef std::vector<ParticlePtr>::iterator ParticlePtrIter;
-    
     sf::CircleShape shape;
     bool isDestroyed;
     sf::Vector2f velocity;
     sf::Vector2f force;
     float mass;
-    
     //sf::Vector2f acceleration;
     Particle() : isDestroyed{false} {};
     Particle(float x, float y){
@@ -55,6 +54,7 @@ struct Particle{
     sf::Vector2f getPosition() const {
         return this->shape.getPosition();
     }
+    
     float radius() const {
         return this->shape.getRadius();
     }
@@ -64,14 +64,15 @@ struct Particle{
     }
     void consume(ParticlePtr& p){
         auto new_r = p->radius() + this->radius();
-        if(new_r <= MAX_RADIUS) this->set_radius( new_r );
+        if(new_r < MAX_RADIUS) this->set_radius( new_r );
+        else shape.setFillColor(sf::Color::Black);
         this->mass += p->mass;
         p->isDestroyed = true;
     }
     void reset_force(){
         force.x = 0; force.y = 0;
     }
-    void setPosition(sf::Vector2f& newPos){
+    void setPosition(sf::Vector2f newPos){
         shape.setPosition(newPos);
     }
     

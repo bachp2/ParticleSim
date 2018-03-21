@@ -87,12 +87,8 @@ void NBody::draw(sf::RenderWindow &window){
     
     for(ParticlePtrIter it = nbodySystem.begin(); it != nbodySystem.end(); it++){
         auto p = *it;
-        if( p->left() < 0.0f) p->velocity.x = abs(p->velocity.x);
-        else if ( p->right() > mapWidth ) p->velocity.x = -abs(p->velocity.x);
-        
-        if( p->top() < 0.0f ) p->velocity.y = abs(p->velocity.y);
-        else if( p->bottom() > mapHeight ) p->velocity.y = -abs(p->velocity.y);
-        
+        //boundary_handle::fixed_walls(p, mapWidth, mapHeight);
+        boundary_handle::through_walls(p, mapWidth, mapHeight);
         p->shape.move(p->velocity);
         window.draw( p->shape );
     }

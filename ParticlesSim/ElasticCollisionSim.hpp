@@ -26,6 +26,33 @@ constexpr int windowWidth{800}, windowHeight{600};
 //    void draw(sf::RenderWindow &window);
 //};
 
+namespace boundary_handle{
+    inline void fixed_walls(Particle::ParticlePtr& p, int mapWidth, int mapHeight){
+        if( p->left() < 0.0f) p->velocity.x = abs(p->velocity.x);
+        else if ( p->right() > mapWidth ) p->velocity.x = -abs(p->velocity.x);
+        
+        if( p->top() < 0.0f ) p->velocity.y = abs(p->velocity.y);
+        else if( p->bottom() > mapHeight ) p->velocity.y = -abs(p->velocity.y);
+    }
+    
+    inline void through_walls(Particle::ParticlePtr& p, int mapWidth, int mapHeight){
+        float SGP = 5.f;
+        if( p->right() < 0.0f - SGP) {
+            p->setPosition(sf::Vector2f( mapWidth + abs(p->getPosition().x) , p->getPosition().y));
+        }
+        else if ( p->left() > mapWidth + SGP ){
+            p->setPosition(sf::Vector2f( mapWidth - abs(p->getPosition().x) , p->getPosition().y));
+        }
+        
+        if( p->bottom() < 0.0f - SGP){
+            p->setPosition(sf::Vector2f( p->getPosition().x , mapHeight + abs(p->getPosition().y) ));
+        }
+        else if( p->top() > mapHeight + SGP) {
+            p->setPosition(sf::Vector2f( p->getPosition().x , mapHeight - abs(p->getPosition().y) ));
+        }
+    }
+};
+
 class ParticleSystem{
     int mapHeight;
     int mapWidth;
