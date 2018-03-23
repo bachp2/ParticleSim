@@ -37,8 +37,9 @@
 #include <iostream>
 #include <math.h>
 #include <list>
+#include <deque>
 #include <assert.h>
-constexpr float particleRadius{1.0f};
+constexpr float particleRadius{10.0f};
 
 ////////////////////////////////////////////////////////////
 /// \brief Return the path to the resource folder.

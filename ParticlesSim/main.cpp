@@ -19,6 +19,9 @@
 #include "ResourcePath.hpp"
 #include "ElasticCollisionSim.hpp"
 #include "NBodySim.hpp"
+
+//#define DISPLAY_TRAIL_ON_PARTICLE
+
 namespace test{
     void run_collision_test(){
         sf::Vector2u window_size(1000,1000);
@@ -75,7 +78,7 @@ namespace sim{
         
         ParticleSystem system(window.getSize());
         //Bar piston;
-        system.spawn(1000);
+        system.spawn(10);
         // Start the game loop
         while (window.isOpen())
         {

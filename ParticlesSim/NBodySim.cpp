@@ -9,20 +9,20 @@
 #include "NBodySim.hpp"
 
 void NBody::spawn(int n){
-    int radii[4] = {1, 2, 3, 5};
+    float radii[4] = {1.0f, 2.0f, 3.0f, 5.0f};
     for(int i = 0; i < n; ++i){
         std::random_device rd;
         std::mt19937 gen(rd());
         //set velocity limit boundary
-        UniRealDist randomVel(-3.0f, 3.0f);
-        UniRealDist randomRad( 1.0f, 10.0f );
+        UniRealDist randomVel(-0.2f, 0.2f);
+        UniRealDist randomRad( 10.0f, 20.0f );
         //UniRealDist randomMass( 1.0f, 10.0f );
         float r = randomRad(gen);
         UniRealDist randomPosX( r, mapWidth - r );
         UniRealDist randomPosY( r, mapHeight - r );
         std::random_shuffle(&radii[0], &radii[3]);
         
-        ParticlePtr b( new Particle(randomPosX(gen), randomPosY(gen), (float) radii[0], r*5 ));
+        ParticlePtr b( new Particle(randomPosX(gen), randomPosY(gen), radii[0], r*5 ));
         sf::Vector2f velocity(randomVel(gen), randomVel(gen));
         if(velocity.x == 0.0f && velocity.y == 0.0f) {
             return;
@@ -89,7 +89,7 @@ void NBody::draw(sf::RenderWindow &window){
         auto p = *it;
         //boundary_handle::fixed_walls(p, mapWidth, mapHeight);
         boundary_handle::through_walls(p, mapWidth, mapHeight);
-        p->shape.move(p->velocity);
+        p->trail.draw(window);
         window.draw( p->shape );
     }
 }

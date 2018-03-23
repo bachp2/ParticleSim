@@ -14,16 +14,65 @@
 
 const int MAX_RADIUS = 7;
 
+using namespace sf;
+struct tPoint{
+    Vector2f position;
+    bool is_teleported;
+    tPoint(Vector2f p){
+        position = p;
+    }
+};
+struct Trail{
+    static const int MAX_RESOLUTION = 50;
+    std::deque<tPoint> trail;
+    void update_shape(Vector2f last_particle_position, bool is_teleported){
+        if(trail.size() == MAX_RESOLUTION) trail.pop_front();
+        auto tmp = tPoint(last_particle_position);
+        tmp.is_teleported = is_teleported;
+        trail.push_back(tmp);
+    }
+    void draw(RenderWindow &window){
+        //if(trail.size() == 1) return;
+        VertexArray lines(LinesStrip, trail.size());
+        int i = 0;
+        int disjoint = 0;
+        for(auto& point : trail){
+            if(point.is_teleported) disjoint = i;
+            lines[i].position = point.position;
+            lines[i].color = Color::Magenta;
+            i++;
+        }
+        
+        if(disjoint){
+            VertexArray segment1(LinesStrip, disjoint);
+            VertexArray segment2(LinesStrip, trail.size() - disjoint);
+            for(int i = 0; i < disjoint; i++){
+                segment1[i].position = lines[i].position;
+                segment1[i].color = lines[i].color;
+            }
+            for(int i = 0; i < trail.size() - disjoint; i++){
+                segment2[i].position = lines[disjoint + i].position;
+                segment2[i].color = lines[disjoint + i].color;
+            }
+            window.draw(segment1);
+            window.draw(segment2);
+        }
+        else window.draw(lines);
+    }
+};
+
 struct Particle{
+    static const std::size_t DEFAULT_POINT_COUNT = 10;
     typedef std::uniform_real_distribution<> UniRealDist;
     typedef std::uniform_int_distribution<> UniIntDist;
     typedef std::shared_ptr<Particle> ParticlePtr;
     typedef std::vector<ParticlePtr>::iterator ParticlePtrIter;
-    sf::CircleShape shape;
+    CircleShape shape;
     bool isDestroyed;
-    sf::Vector2f velocity;
-    sf::Vector2f force;
+    Vector2f velocity;
+    Vector2f force;
     float mass;
+    Trail trail;
     //sf::Vector2f acceleration;
     Particle() : isDestroyed{false} {};
     Particle(float x, float y){
@@ -32,19 +81,22 @@ struct Particle{
         shape.setRadius(particleRadius);
         //shape.setFillColor(sf::Color(169,169,169));
         shape.setFillColor(sf::Color::Blue);
+        shape.setPointCount(10);
         shape.setOrigin(particleRadius, particleRadius);
     }
-    
+    ~Particle(){
+        
+    }
     Particle(float x, float y, float r, float m){
         isDestroyed = false;
         shape.setPosition(x, y);
         shape.setRadius(r);
         shape.setFillColor(sf::Color::Blue);
-        shape.setOrigin(particleRadius, particleRadius);
+        shape.setOrigin(r, r);
+        shape.setPointCount(10);
         mass = m;
         force = sf::Vector2f(0,0);
     }
-    
     float x() const {
         return this->shape.getPosition().x;
     }
@@ -62,13 +114,23 @@ struct Particle{
     void set_radius(float r){
         this->shape.setRadius(r);
     }
+    //i have to think more about the momentum of particle on impact with consumed particle
+    //TODO: refine this subrotine to be physically correct
     void consume(ParticlePtr& p){
         auto new_r = p->radius() + this->radius();
-        if(new_r < MAX_RADIUS) this->set_radius( new_r );
+        if(new_r < MAX_RADIUS){
+            this->set_radius( new_r );
+            shape.setOrigin(new_r, new_r);
+        }
         else shape.setFillColor(sf::Color::Black);
+        
+        auto old_mass = this->mass;
         this->mass += p->mass;
+        auto momentum_before_impact = old_mass * this->velocity + p->mass * p->velocity;
+        this->velocity = momentum_before_impact/this->mass;
         p->isDestroyed = true;
     }
+   
     void reset_force(){
         force.x = 0; force.y = 0;
     }
@@ -101,7 +163,7 @@ struct Particle{
     }
     
     bool contact(Particle& p){
-        sf::Vector2f dxdy = this->getPosition() - p.getPosition();
+        Vector2f dxdy = this->getPosition() - p.getPosition();
         return pow(dxdy.x,2) + pow(dxdy.y,2) < pow(this->shape.getRadius() + p.shape.getRadius(), 2);
     }
     //square distance from a point

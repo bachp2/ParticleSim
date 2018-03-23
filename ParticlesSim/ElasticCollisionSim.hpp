@@ -28,28 +28,44 @@ constexpr int windowWidth{800}, windowHeight{600};
 
 namespace boundary_handle{
     inline void fixed_walls(Particle::ParticlePtr& p, int mapWidth, int mapHeight){
-        if( p->left() < 0.0f) p->velocity.x = abs(p->velocity.x);
-        else if ( p->right() > mapWidth ) p->velocity.x = -abs(p->velocity.x);
-        
-        if( p->top() < 0.0f ) p->velocity.y = abs(p->velocity.y);
-        else if( p->bottom() > mapHeight ) p->velocity.y = -abs(p->velocity.y);
+        if( p->left() < 0.0f) {
+            p->velocity.x = abs(p->velocity.x);
+        }
+        else if ( p->right() > mapWidth ) {
+            p->velocity.x = -abs(p->velocity.x);
+        }
+        if( p->top() < 0.0f ) {
+            p->velocity.y = abs(p->velocity.y);
+        }
+        else if( p->bottom() > mapHeight ) {
+            p->velocity.y = -abs(p->velocity.y);
+        }
+        p->shape.move(p->velocity);
+        p->trail.update_shape(p->getPosition(), false);
     }
     
     inline void through_walls(Particle::ParticlePtr& p, int mapWidth, int mapHeight){
-        float SGP = 5.f;
-        if( p->right() < 0.0f - SGP) {
+        float LP = 5.f;
+        bool is_teleported = false;
+        if( p->right() < 0.0f - LP) {
             p->setPosition(sf::Vector2f( mapWidth + abs(p->getPosition().x) , p->getPosition().y));
+            is_teleported = true;
         }
-        else if ( p->left() > mapWidth + SGP ){
+        else if ( p->left() > mapWidth + LP ){
             p->setPosition(sf::Vector2f( mapWidth - abs(p->getPosition().x) , p->getPosition().y));
+            is_teleported = true;
         }
         
-        if( p->bottom() < 0.0f - SGP){
+        if( p->bottom() < 0.0f - LP){
             p->setPosition(sf::Vector2f( p->getPosition().x , mapHeight + abs(p->getPosition().y) ));
+            is_teleported = true;
         }
-        else if( p->top() > mapHeight + SGP) {
+        else if( p->top() > mapHeight + LP) {
             p->setPosition(sf::Vector2f( p->getPosition().x , mapHeight - abs(p->getPosition().y) ));
+            is_teleported = true;
         }
+        p->shape.move(p->velocity);
+        p->trail.update_shape(p->getPosition(), is_teleported);
     }
 };
 

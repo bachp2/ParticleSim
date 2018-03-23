@@ -35,10 +35,10 @@ void ParticleSystem::spawn(int n){
         std::random_device rd;
         std::mt19937 gen(rd());
         //set velocity limit boundary
-        UniRealDist randomVel(-3.0f, 3.0f);
+        UniRealDist randomVel(-1.0f, 1.0f);
         UniRealDist randomPosX( particleRadius, mapWidth - particleRadius );
         UniRealDist randomPosY( particleRadius, mapHeight - particleRadius );
-        ParticlePtr particle( new Particle( randomPosX(gen), randomPosY(gen) ) );
+        ParticlePtr particle( new Particle( randomPosX(gen), randomPosY(gen), particleRadius, 0.0f ) );
         sf::Vector2f velocity(randomVel(gen), randomVel(gen));
         if(velocity.x == 0.0f && velocity.y == 0.0f) {
             return;
@@ -93,13 +93,27 @@ void ParticleSystem::draw(sf::RenderWindow &window){
     //std::cout << &particleSystem[0] << std::endl;
     for(ParticlePtrIter it = particleSystem.begin(); it != particleSystem.end(); it++){
         auto p = *it;
+        bool is_in_limbo = false;
         //std::cout << p << " position: " << p->shape.getPosition().y << ' ' << p->shape.getPosition().x << std::endl;
-        if( p->left() < 0.0f) p->velocity.x = abs(p->velocity.x);
-        else if ( p->right() > mapWidth ) p->velocity.x = -abs(p->velocity.x);
+        if( p->left() < 0.0f) {
+            p->velocity.x = abs(p->velocity.x);
+            is_in_limbo = true;
+        }
+        else if ( p->right() > mapWidth ){
+            p->velocity.x = -abs(p->velocity.x);
+            is_in_limbo = true;
+        }
 
-        if( p->top() < 0.0f ) p->velocity.y = abs(p->velocity.y);
-        else if( p->bottom() > mapHeight ) p->velocity.y = -abs(p->velocity.y);
-
+        if( p->top() < 0.0f ){
+            p->velocity.y = abs(p->velocity.y);
+            is_in_limbo = true;
+        }
+        else if( p->bottom() > mapHeight ){
+            p->velocity.y = -abs(p->velocity.y);
+            is_in_limbo = true;
+        }
+        p->trail.update_shape(p->getPosition(), is_in_limbo);
+        p->trail.draw(window);
         p->shape.move(p->velocity);
         window.draw( p->shape );
     }
@@ -136,6 +150,11 @@ void ParticleSystem::collide(ParticlePtr& p1, ParticlePtr& p2){
     auto v2prime = v2 - float( dotProduct(v2-v1, -dr)/dist_square ) * (-dr);
     p1->velocity = v1prime;
     p2->velocity = v2prime;
+    p1->set_radius(p1->radius() + 1.0f);
+    p1->shape.setOrigin(p1->radius(), p1->radius());
+    //p1->shape.setOrigin(1.0f, 1.0f);
+    p2->set_radius(p2->radius() + 1.0f);
+    p2->shape.setOrigin(p2->radius(), p2->radius());
 }
 
 void ParticleSystem::print_particle_position(std::vector<ParticlePtr>& system){
