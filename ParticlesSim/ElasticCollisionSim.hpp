@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "ResourcePath.hpp"
+#include "TileMap.hpp"
 #include "Particle.hpp"
 #include "Quadtree.hpp"
 
@@ -73,6 +74,7 @@ class ParticleSystem{
     int mapHeight;
     int mapWidth;
 public:
+    TileMap tileMap;
     std::shared_ptr<Quadtree> root;
     typedef std::uniform_real_distribution<> UniRealDist;
     typedef std::uniform_int_distribution<> UniIntDist;
@@ -84,6 +86,7 @@ public:
     ParticleSystem(sf::Vector2u canvasSize){
         mapHeight = canvasSize.y;
         mapWidth = canvasSize.x;
+        tileMap.init("grid.png", mapWidth, mapHeight, 25);
         //std::cout << mapWidth << ' ' << mapHeight << std::endl;
     }
     

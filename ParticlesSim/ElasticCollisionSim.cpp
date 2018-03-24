@@ -51,7 +51,6 @@ void ParticleSystem::spawn(int n){
 
 void ParticleSystem::draw(sf::RenderWindow &window){
     //bruteforce();
-    
     //quadtree optimization
     root->clear();
     //assert(root->MAX_OBJECTS == 10);

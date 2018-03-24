@@ -16,6 +16,7 @@
 
 class NBody
 {
+    TileMap tiles;
     const float dt = 1.0f/200.0f;
     const float G = 10.f;
     int mapHeight, mapWidth;
@@ -30,6 +31,7 @@ public:
         mapHeight = canvasSize.y;
         mapWidth = canvasSize.x;
         //std::cout << mapWidth << ' ' << mapHeight << std::endl;
+        tiles.init("grid.png", mapWidth, mapHeight, 50);
     };
     
     void spawn(int n);

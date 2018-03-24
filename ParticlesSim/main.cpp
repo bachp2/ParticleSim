@@ -61,11 +61,21 @@ namespace test{
     
     void run_tilemaps_test(){
         sf::RenderWindow window(sf::VideoMode{windowWidth,windowHeight}, "Tilemap test", sf::Style::Titlebar | sf::Style::Close);
-        sf::RectangleShape grid(sf::Vector2f(400.0f,400.0f));
+        sf::RectangleShape grid(sf::Vector2f(50.0f,50.0f));
+        sf::RectangleShape grid1(sf::Vector2f(50.0f,50.0f));
+        grid1.move(200.0f, 200.0f);
+        //sf::RectangleShape grid2(sf::Vector2f(200.0f,200.0f));
         sf::Texture grid_texture;
         if ( !grid_texture.loadFromFile(resourcePath() + "grid.png") )
             return EXIT_FAILURE;
         grid.setTexture(&grid_texture);
+        grid.setFillColor(sf::Color(255, 255, 255, 128));
+        grid1.setTexture(&grid_texture);
+        auto texture_size = grid_texture.getSize();
+        texture_size.x /= 4;
+        texture_size.y /= 4;
+        grid.setTextureRect(sf::IntRect(texture_size.x, texture_size.y, texture_size.x, texture_size.y));
+        grid1.setTextureRect(sf::IntRect(texture_size.x, texture_size.y, texture_size.x, texture_size.y));
         while (window.isOpen())
         {
             // Process events
@@ -86,6 +96,7 @@ namespace test{
             window.clear(sf::Color::White);
             //draw entities
             window.draw(grid);
+            window.draw(grid1);
             // Update the window
             window.display();
         }
@@ -104,12 +115,13 @@ namespace sim{
         window.setFramerateLimit(120);
         
         // Set the Icon
-        sf::Image icon;
-        if (!icon.loadFromFile(resourcePath() + "icon.png")) {
-            return EXIT_FAILURE;
-        }
-        window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
-        
+//        sf::Image icon;
+//        if (!icon.loadFromFile(resourcePath() + "icon.png")) {
+//            return EXIT_FAILURE;
+//        }
+//        window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+//
+//
         ParticleSystem system(window.getSize());
         //Bar piston;
         system.spawn(10);
@@ -134,6 +146,7 @@ namespace sim{
             window.clear(sf::Color::White);
             //draw particles
             //piston.draw(window);
+            window.draw(system.tileMap);
             system.draw(window);
             // Update the window
             window.display();
@@ -178,8 +191,8 @@ int main(int, char const**)
 {
     //test::run_test();
     //sim::elastic_collision();
-    //sim::nbody();
-    test::run_tilemaps_test();
+    sim::nbody();
+    //test::run_tilemaps_test();
     return EXIT_SUCCESS;
 }
 

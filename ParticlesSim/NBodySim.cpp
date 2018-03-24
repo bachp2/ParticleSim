@@ -84,7 +84,7 @@ void NBody::update_physics(){
 
 void NBody::draw(sf::RenderWindow &window){
     update_physics();
-    
+    window.draw(tiles);
     for(ParticlePtrIter it = nbodySystem.begin(); it != nbodySystem.end(); it++){
         auto p = *it;
         //boundary_handle::fixed_walls(p, mapWidth, mapHeight);

@@ -26,6 +26,7 @@
 		421DA3321FFB5FBE0098929D /* NBodySim.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NBodySim.cpp; sourceTree = "<group>"; };
 		421DA3331FFB5FBE0098929D /* NBodySim.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NBodySim.hpp; sourceTree = "<group>"; };
 		422877932066D0420071E2A8 /* grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid.png; sourceTree = "<group>"; };
+		422877962066DD700071E2A8 /* TileMap.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TileMap.hpp; sourceTree = "<group>"; };
 		42D651211FFDD51100C4D250 /* Quadtree.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Quadtree.cpp; sourceTree = "<group>"; };
 		42D651221FFDD51100C4D250 /* Quadtree.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Quadtree.hpp; sourceTree = "<group>"; };
 		42D651241FFDFBEC00C4D250 /* Particle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Particle.hpp; sourceTree = "<group>"; };
@@ -73,6 +74,7 @@
 				42D651211FFDD51100C4D250 /* Quadtree.cpp */,
 				42D651221FFDD51100C4D250 /* Quadtree.hpp */,
 				42D651241FFDFBEC00C4D250 /* Particle.hpp */,
+				422877962066DD700071E2A8 /* TileMap.hpp */,
 			);
 			path = ParticlesSim;
 			sourceTree = "<group>";
