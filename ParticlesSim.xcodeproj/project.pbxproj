@@ -9,10 +9,6 @@
 /* Begin PBXBuildFile section */
 		420CA0BB1FF854DA00EECC49 /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 420CA0BA1FF854DA00EECC49 /* ResourcePath.mm */; settings = {COMPILER_FLAGS = "-fno-elide-constructors"; }; };
 		420CA0BE1FF854DA00EECC49 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 420CA0BD1FF854DA00EECC49 /* main.cpp */; settings = {COMPILER_FLAGS = "-fno-elide-constructors"; }; };
-		420CA0C11FF854DA00EECC49 /* cute_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 420CA0C01FF854DA00EECC49 /* cute_image.jpg */; };
-		420CA0C31FF854DA00EECC49 /* nice_music.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 420CA0C21FF854DA00EECC49 /* nice_music.ogg */; };
-		420CA0C51FF854DA00EECC49 /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 420CA0C41FF854DA00EECC49 /* sansation.ttf */; };
-		420CA0C71FF854DA00EECC49 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 420CA0C61FF854DA00EECC49 /* icon.png */; };
 		421DA3311FFB2BB20098929D /* ElasticCollisionSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 421DA32F1FFB2BB20098929D /* ElasticCollisionSim.cpp */; settings = {COMPILER_FLAGS = "-fno-elide-constructors"; }; };
 		421DA3341FFB5FBE0098929D /* NBodySim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 421DA3321FFB5FBE0098929D /* NBodySim.cpp */; settings = {COMPILER_FLAGS = "-fno-elide-constructors"; }; };
 		42D651231FFDD51100C4D250 /* Quadtree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42D651211FFDD51100C4D250 /* Quadtree.cpp */; settings = {COMPILER_FLAGS = "-fno-elide-constructors"; }; };
@@ -24,10 +20,6 @@
 		420CA0BA1FF854DA00EECC49 /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
 		420CA0BC1FF854DA00EECC49 /* ResourcePath.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ResourcePath.hpp; sourceTree = "<group>"; };
 		420CA0BD1FF854DA00EECC49 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		420CA0C01FF854DA00EECC49 /* cute_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cute_image.jpg; sourceTree = "<group>"; };
-		420CA0C21FF854DA00EECC49 /* nice_music.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = nice_music.ogg; sourceTree = "<group>"; };
-		420CA0C41FF854DA00EECC49 /* sansation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sansation.ttf; sourceTree = "<group>"; };
-		420CA0C61FF854DA00EECC49 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		421DA32F1FFB2BB20098929D /* ElasticCollisionSim.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ElasticCollisionSim.cpp; sourceTree = "<group>"; };
 		421DA3301FFB2BB20098929D /* ElasticCollisionSim.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ElasticCollisionSim.hpp; sourceTree = "<group>"; };
 		421DA3321FFB5FBE0098929D /* NBodySim.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NBodySim.cpp; sourceTree = "<group>"; };
@@ -94,10 +86,6 @@
 		420CA0BF1FF854DA00EECC49 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				420CA0C01FF854DA00EECC49 /* cute_image.jpg */,
-				420CA0C21FF854DA00EECC49 /* nice_music.ogg */,
-				420CA0C41FF854DA00EECC49 /* sansation.ttf */,
-				420CA0C61FF854DA00EECC49 /* icon.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -160,10 +148,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				420CA0C71FF854DA00EECC49 /* icon.png in Resources */,
-				420CA0C51FF854DA00EECC49 /* sansation.ttf in Resources */,
-				420CA0C31FF854DA00EECC49 /* nice_music.ogg in Resources */,
-				420CA0C11FF854DA00EECC49 /* cute_image.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
