@@ -58,6 +58,40 @@ namespace test{
             printf("\n");
         }
     }
+    
+    void run_tilemaps_test(){
+        sf::RenderWindow window(sf::VideoMode{windowWidth,windowHeight}, "Tilemap test", sf::Style::Titlebar | sf::Style::Close);
+        sf::RectangleShape grid(sf::Vector2f(400.0f,400.0f));
+        sf::Texture grid_texture;
+        if ( !grid_texture.loadFromFile(resourcePath() + "grid.png") )
+            return EXIT_FAILURE;
+        
+        while (window.isOpen())
+        {
+            // Process events
+            sf::Event event;
+            while (window.pollEvent(event))
+            {
+                // Close window: exit
+                if (event.type == sf::Event::Closed) {
+                    window.close();
+                }
+                
+                // Escape pressed: exit
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+                    window.close();
+                }
+            }
+            // Clear screen
+            window.clear(sf::Color::White);
+            //draw entities
+            window.draw(grid);
+            // Update the window
+            window.display();
+        }
+        
+    }
+    
     void run_nbody_test(){
     
     }
@@ -144,7 +178,8 @@ int main(int, char const**)
 {
     //test::run_test();
     //sim::elastic_collision();
-    sim::nbody();
+    //sim::nbody();
+    test::run_tilemaps_test();
     return EXIT_SUCCESS;
 }
 
