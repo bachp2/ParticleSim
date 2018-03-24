@@ -65,7 +65,7 @@ namespace test{
         sf::Texture grid_texture;
         if ( !grid_texture.loadFromFile(resourcePath() + "grid.png") )
             return EXIT_FAILURE;
-        
+        grid.setTexture(&grid_texture);
         while (window.isOpen())
         {
             // Process events
