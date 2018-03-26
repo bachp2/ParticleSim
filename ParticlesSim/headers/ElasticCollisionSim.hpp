@@ -47,26 +47,26 @@ namespace boundary_handle{
     
     inline void through_walls(Particle::ParticlePtr& p, int mapWidth, int mapHeight){
         float LP = 5.f;
-        bool is_teleported = false;
+        bool stop_trailing = false;
         if( p->right() < 0.0f - LP) {
             p->setPosition(sf::Vector2f( mapWidth + abs(p->getPosition().x) , p->getPosition().y));
-            is_teleported = true;
+            stop_trailing = true;
         }
         else if ( p->left() > mapWidth + LP ){
             p->setPosition(sf::Vector2f( mapWidth - abs(p->getPosition().x) , p->getPosition().y));
-            is_teleported = true;
+            stop_trailing = true;
         }
         
         if( p->bottom() < 0.0f - LP){
             p->setPosition(sf::Vector2f( p->getPosition().x , mapHeight + abs(p->getPosition().y) ));
-            is_teleported = true;
+            stop_trailing = true;
         }
         else if( p->top() > mapHeight + LP) {
             p->setPosition(sf::Vector2f( p->getPosition().x , mapHeight - abs(p->getPosition().y) ));
-            is_teleported = true;
+            stop_trailing = true;
         }
         p->shape.move(p->velocity);
-        p->trail.update_shape(p->getPosition(), is_teleported);
+        p->trail.update_shape(p->getPosition(), stop_trailing);
     }
 };
 

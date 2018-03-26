@@ -15,6 +15,7 @@
 const int MAX_RADIUS = 7;
 
 using namespace sf;
+
 struct tPoint{
     Vector2f position;
     bool is_teleported;
@@ -22,8 +23,9 @@ struct tPoint{
         position = p;
     }
 };
+
 struct Trail{
-    static const int MAX_RESOLUTION = 20;
+    static const int MAX_RESOLUTION = 50;
     std::deque<tPoint> trail;
     void update_shape(Vector2f last_particle_position, bool is_teleported){
         if(trail.size() == MAX_RESOLUTION) trail.pop_front();
