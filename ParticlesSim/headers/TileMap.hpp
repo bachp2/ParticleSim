@@ -37,7 +37,7 @@ public:
             }
         }
     };
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const{
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const{
         for(const auto& tile : grid_tiles){
             target.draw(tile, states);
         }

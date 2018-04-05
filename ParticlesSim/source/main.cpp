@@ -147,7 +147,8 @@ namespace sim{
             //draw particles
             //piston.draw(window);
             window.draw(system.tileMap);
-            system.draw(window);
+            system.update_physics();
+            window.draw(system);
             // Update the window
             window.display();
         }
@@ -190,8 +191,8 @@ namespace sim{
 int main(int, char const**)
 {
     //test::run_test();
-    //sim::elastic_collision();
-    sim::nbody();
+    sim::elastic_collision();
+    //sim::nbody();
     //test::run_tilemaps_test();
     return EXIT_SUCCESS;
 }

@@ -48,8 +48,8 @@ void ParticleSystem::spawn(int n){
         //particle.reset();
     }
 }
-
-void ParticleSystem::draw(sf::RenderWindow &window){
+void ParticleSystem::update_physics()
+{
     //bruteforce();
     //quadtree optimization
     root->clear();
@@ -58,11 +58,11 @@ void ParticleSystem::draw(sf::RenderWindow &window){
     for(auto& p : particleSystem){
         root->insert(p);
     }
-
-//    size_t sum = 0;
-//    root->traverseTree(sum);
+    
+    //    size_t sum = 0;
+    //    root->traverseTree(sum);
     std::vector<ParticlePtr> returnObjPtrs;
-
+    
     for(auto j = particleSystem.begin(); j != particleSystem.end(); j++){
         //std::cout << &(*j) << std::endl;
         returnObjPtrs.clear();
@@ -87,36 +87,35 @@ void ParticleSystem::draw(sf::RenderWindow &window){
             }
         }
     }
-    //std::cout << returnObjPtrs.size() << std::endl;
-    //draw on screen
-    //std::cout << &particleSystem[0] << std::endl;
-    for(ParticlePtrIter it = particleSystem.begin(); it != particleSystem.end(); it++){
+    for( ParticlePtrIter it = particleSystem.begin(); it != particleSystem.end(); it++){
         auto p = *it;
-        bool is_in_limbo = false;
         //std::cout << p << " position: " << p->shape.getPosition().y << ' ' << p->shape.getPosition().x << std::endl;
         if( p->left() < 0.0f) {
             p->velocity.x = abs(p->velocity.x);
-            is_in_limbo = true;
         }
         else if ( p->right() > mapWidth ){
             p->velocity.x = -abs(p->velocity.x);
-            is_in_limbo = true;
         }
-
+        
         if( p->top() < 0.0f ){
             p->velocity.y = abs(p->velocity.y);
-            is_in_limbo = true;
         }
         else if( p->bottom() > mapHeight ){
             p->velocity.y = -abs(p->velocity.y);
-            is_in_limbo = true;
         }
-        p->trail.update_shape(p->getPosition(), is_in_limbo);
-        p->trail.draw(window);
         p->shape.move(p->velocity);
-        window.draw( p->shape );
     }
 }
+
+//void ParticleSystem::draw(sf::RenderWindow &target, sf::RenderStates states) const {
+//    for(const auto& p : particleSystem)
+//    {
+//        p->trail.update_shape(p->getPosition());
+//        p->trail.draw(target);
+//        //p->shape.move(p->velocity);
+//        target.draw( p->shape );
+//    }
+//}
 
 void ParticleSystem::bruteforce(){
     

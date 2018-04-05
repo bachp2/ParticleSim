@@ -42,35 +42,35 @@ namespace boundary_handle{
             p->velocity.y = -abs(p->velocity.y);
         }
         p->shape.move(p->velocity);
-        p->trail.update_shape(p->getPosition(), false);
+        p->trail.update_shape(p->getPosition());
     }
     
     inline void through_walls(Particle::ParticlePtr& p, int mapWidth, int mapHeight){
         float LP = 5.f;
-        bool stop_trailing = false;
+        //bool stop_trailing = false;
         if( p->right() < 0.0f - LP) {
             p->setPosition(sf::Vector2f( mapWidth + abs(p->getPosition().x) , p->getPosition().y));
-            stop_trailing = true;
+            //stop_trailing = true;
         }
         else if ( p->left() > mapWidth + LP ){
             p->setPosition(sf::Vector2f( mapWidth - abs(p->getPosition().x) , p->getPosition().y));
-            stop_trailing = true;
+            //stop_trailing = true;
         }
         
         if( p->bottom() < 0.0f - LP){
             p->setPosition(sf::Vector2f( p->getPosition().x , mapHeight + abs(p->getPosition().y) ));
-            stop_trailing = true;
+            //stop_trailing = true;
         }
         else if( p->top() > mapHeight + LP) {
             p->setPosition(sf::Vector2f( p->getPosition().x , mapHeight - abs(p->getPosition().y) ));
-            stop_trailing = true;
+            //stop_trailing = true;
         }
         p->shape.move(p->velocity);
-        p->trail.update_shape(p->getPosition(), stop_trailing);
+        p->trail.update_shape(p->getPosition());
     }
 };
 
-class ParticleSystem{
+class ParticleSystem : public sf::Drawable{
     int mapHeight;
     int mapWidth;
 public:
@@ -82,7 +82,7 @@ public:
     typedef std::vector<ParticlePtr>::iterator ParticlePtrIter;
     
     std::vector<ParticlePtr> particleSystem;
-    
+    void update_physics();
     ParticleSystem(sf::Vector2u canvasSize){
         mapHeight = canvasSize.y;
         mapWidth = canvasSize.x;
@@ -91,11 +91,20 @@ public:
     }
     
     void spawn(int n);
-    void draw(sf::RenderWindow &window);
     void collide(ParticlePtr& p1, ParticlePtr& p2);
     void resetDefaultColor();
     void print_particle_position(std::vector<ParticlePtr>& system);
     void print_particle_position(std::shared_ptr<Quadtree>& root);
+protected:
+    void draw(RenderTarget& target, RenderStates states) const {
+        for(const auto& p : particleSystem)
+        {
+            p->trail.update_shape(p->getPosition());
+            p->trail.draw(target);
+            //p->shape.move(p->velocity);
+            target.draw( p->shape );
+        }
+    };
 private:
     float dotProduct(sf::Vector2f v1, sf::Vector2f v2);
     void bruteforce();

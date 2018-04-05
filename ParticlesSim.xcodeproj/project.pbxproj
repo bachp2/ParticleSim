@@ -12,6 +12,7 @@
 		421DA3311FFB2BB20098929D /* ElasticCollisionSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 421DA32F1FFB2BB20098929D /* ElasticCollisionSim.cpp */; settings = {COMPILER_FLAGS = "-fno-elide-constructors"; }; };
 		421DA3341FFB5FBE0098929D /* NBodySim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 421DA3321FFB5FBE0098929D /* NBodySim.cpp */; settings = {COMPILER_FLAGS = "-fno-elide-constructors"; }; };
 		422877942066D0420071E2A8 /* grid.png in Resources */ = {isa = PBXBuildFile; fileRef = 422877932066D0420071E2A8 /* grid.png */; };
+		425E9A57206C087400F41BD3 /* Utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 425E9A55206C087400F41BD3 /* Utility.cpp */; };
 		42D651231FFDD51100C4D250 /* Quadtree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42D651211FFDD51100C4D250 /* Quadtree.cpp */; settings = {COMPILER_FLAGS = "-fno-elide-constructors"; }; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,8 @@
 		422877932066D0420071E2A8 /* grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid.png; sourceTree = "<group>"; };
 		422877962066DD700071E2A8 /* TileMap.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TileMap.hpp; sourceTree = "<group>"; };
 		425E9A5120674AAC00F41BD3 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
+		425E9A55206C087400F41BD3 /* Utility.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Utility.cpp; path = ParticlesSim/source/Utility.cpp; sourceTree = SOURCE_ROOT; };
+		425E9A56206C087400F41BD3 /* Utility.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Utility.hpp; path = ParticlesSim/source/Utility.hpp; sourceTree = SOURCE_ROOT; };
 		42D651211FFDD51100C4D250 /* Quadtree.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Quadtree.cpp; sourceTree = "<group>"; };
 		42D651221FFDD51100C4D250 /* Quadtree.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Quadtree.hpp; sourceTree = "<group>"; };
 		42D651241FFDFBEC00C4D250 /* Particle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Particle.hpp; sourceTree = "<group>"; };
@@ -97,6 +100,7 @@
 				421DA3331FFB5FBE0098929D /* NBodySim.hpp */,
 				420CA0BC1FF854DA00EECC49 /* ResourcePath.hpp */,
 				422877962066DD700071E2A8 /* TileMap.hpp */,
+				425E9A56206C087400F41BD3 /* Utility.hpp */,
 			);
 			path = headers;
 			sourceTree = "<group>";
@@ -108,6 +112,7 @@
 				421DA3321FFB5FBE0098929D /* NBodySim.cpp */,
 				421DA32F1FFB2BB20098929D /* ElasticCollisionSim.cpp */,
 				420CA0BA1FF854DA00EECC49 /* ResourcePath.mm */,
+				425E9A55206C087400F41BD3 /* Utility.cpp */,
 				420CA0BD1FF854DA00EECC49 /* main.cpp */,
 			);
 			path = source;
@@ -198,6 +203,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				425E9A57206C087400F41BD3 /* Utility.cpp in Sources */,
 				420CA0BE1FF854DA00EECC49 /* main.cpp in Sources */,
 				421DA3311FFB2BB20098929D /* ElasticCollisionSim.cpp in Sources */,
 				42D651231FFDD51100C4D250 /* Quadtree.cpp in Sources */,

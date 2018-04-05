@@ -17,49 +17,74 @@ const int MAX_RADIUS = 7;
 using namespace sf;
 
 struct tPoint{
+    static constexpr float POS_DIFF_TOLERANCE = 15.0f;
     Vector2f position;
-    bool is_teleported;
+    bool is_disjoint;
     tPoint(Vector2f p){
         position = p;
+    }
+    static bool check_for_disjoint_point(const tPoint& p1, const tPoint& p2){
+        auto diff = p1.position - p2.position;
+        return abs(diff.x) >= POS_DIFF_TOLERANCE || abs(diff.y) >= POS_DIFF_TOLERANCE;
     }
 };
 
 struct Trail{
     static const int MAX_RESOLUTION = 50;
     std::deque<tPoint> trail;
-    void update_shape(Vector2f last_particle_position, bool is_teleported){
+    void update_shape(Vector2f last_particle_position){
         if(trail.size() == MAX_RESOLUTION) trail.pop_front();
         auto tmp = tPoint(last_particle_position);
-        tmp.is_teleported = is_teleported;
+        if(trail.empty()) tmp.is_disjoint = false;
+        else{
+            auto is_disjoint = tPoint::check_for_disjoint_point(*trail.cend(), tmp);
+            tmp.is_disjoint = is_disjoint;
+        }
         trail.push_back(tmp);
     }
-    void draw(RenderWindow &window){
+    
+    void draw(RenderTarget &window){
         //if(trail.size() == 1) return;
+        std::vector<VertexArray> disjoint_lines;
         VertexArray lines(LinesStrip, trail.size());
         int i = 0;
-        int disjoint = 0;
         for(auto& point : trail){
-            if(point.is_teleported) disjoint = i;
-            lines[i].position = point.position;
-            lines[i].color = Color::Magenta;
+            if(point.is_disjoint){
+                auto temp = lines;
+                temp.resize(i);
+                disjoint_lines.push_back(temp);
+                lines.clear();
+                i = 0;
+                lines[i].position = point.position;
+                lines[i].color = Color::Magenta;
+            }
+            else{
+                lines[i].position = point.position;
+                lines[i].color = Color::Magenta;
+            }
             i++;
         }
-        
-        if(disjoint){
-            VertexArray segment1(LinesStrip, disjoint);
-            VertexArray segment2(LinesStrip, trail.size() - disjoint);
-            for(int i = 0; i < disjoint; i++){
-                segment1[i].position = lines[i].position;
-                segment1[i].color = lines[i].color;
+        if(disjoint_lines.empty()) window.draw(lines);
+        else{
+            for(const auto& l : disjoint_lines){
+                window.draw(l);
             }
-            for(int i = 0; i < trail.size() - disjoint; i++){
-                segment2[i].position = lines[disjoint + i].position;
-                segment2[i].color = lines[disjoint + i].color;
-            }
-            window.draw(segment1);
-            window.draw(segment2);
         }
-        else window.draw(lines);
+//        if(disjoint){
+//            VertexArray segment1(LinesStrip, disjoint);
+//            VertexArray segment2(LinesStrip, trail.size() - disjoint);
+//            for(int i = 0; i < disjoint; i++){
+//                segment1[i].position = lines[i].position;
+//                segment1[i].color = lines[i].color;
+//            }
+//            for(int i = 0; i < trail.size() - disjoint; i++){
+//                segment2[i].position = lines[disjoint + i].position;
+//                segment2[i].color = lines[disjoint + i].color;
+//            }
+//            window.draw(segment1);
+//            window.draw(segment2);
+//        }
+//        else window.draw(lines);
     }
 };
 
