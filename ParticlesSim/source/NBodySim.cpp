@@ -48,6 +48,12 @@ void NBody::applyForce(ParticlePtr& cueball, ParticlePtr& pocketball)
 }
 
 void NBody::update_physics(){
+    //update velocity of particle in half step
+    for(const auto& p : nbodySystem){
+        p->update_velocity(dt);
+        p->shape.move(p->velocity);
+    }
+    //apply force to calculate acc
     root->clear();
     for(auto& p : nbodySystem){
         root->insert(p);
@@ -76,6 +82,7 @@ void NBody::update_physics(){
         }
     }
     clean_up_dead_particles();
+    //update particles' velocity again for full step;
     for(const auto& p : nbodySystem){
         p->update_velocity(dt);
     }
@@ -89,6 +96,7 @@ void NBody::draw(sf::RenderWindow &window){
         auto p = *it;
         //boundary_handle::fixed_walls(p, mapWidth, mapHeight);
         boundary_handle::through_walls(p, mapWidth, mapHeight);
+        p->trail.update_shape(p->getPosition());
         p->trail.draw(window);
         window.draw( p->shape );
     }

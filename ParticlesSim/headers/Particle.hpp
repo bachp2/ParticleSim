@@ -17,27 +17,30 @@ const int MAX_RADIUS = 7;
 using namespace sf;
 
 struct tPoint{
-    static constexpr float POS_DIFF_TOLERANCE = 15.0f;
+    static constexpr float POS_DIFF_TOLERANCE = 100.0f;
     Vector2f position;
     bool is_disjoint;
     tPoint(Vector2f p){
         position = p;
     }
-    static bool check_for_disjoint_point(const tPoint& p1, const tPoint& p2){
+    static bool check_for_disjoint_point(tPoint& p1, tPoint& p2){
         auto diff = p1.position - p2.position;
+        auto abs1 = abs(diff.x);
         return abs(diff.x) >= POS_DIFF_TOLERANCE || abs(diff.y) >= POS_DIFF_TOLERANCE;
     }
 };
 
 struct Trail{
-    static const int MAX_RESOLUTION = 50;
+    static const int MAX_RESOLUTION = 25;
     std::deque<tPoint> trail;
     void update_shape(Vector2f last_particle_position){
         if(trail.size() == MAX_RESOLUTION) trail.pop_front();
         auto tmp = tPoint(last_particle_position);
-        if(trail.empty()) tmp.is_disjoint = false;
+        if( trail.empty() ) {
+            tmp.is_disjoint = false;
+        }
         else{
-            auto is_disjoint = tPoint::check_for_disjoint_point(*trail.cend(), tmp);
+            auto is_disjoint = tPoint::check_for_disjoint_point(trail.back(), tmp);
             tmp.is_disjoint = is_disjoint;
         }
         trail.push_back(tmp);
@@ -67,29 +70,22 @@ struct Trail{
         if(disjoint_lines.empty()) window.draw(lines);
         else{
             for(const auto& l : disjoint_lines){
-                window.draw(l);
+                if(l.getVertexCount() != 1) window.draw(l);
             }
         }
-//        if(disjoint){
-//            VertexArray segment1(LinesStrip, disjoint);
-//            VertexArray segment2(LinesStrip, trail.size() - disjoint);
-//            for(int i = 0; i < disjoint; i++){
-//                segment1[i].position = lines[i].position;
-//                segment1[i].color = lines[i].color;
-//            }
-//            for(int i = 0; i < trail.size() - disjoint; i++){
-//                segment2[i].position = lines[disjoint + i].position;
-//                segment2[i].color = lines[disjoint + i].color;
-//            }
-//            window.draw(segment1);
-//            window.draw(segment2);
+//        VertexArray lines(LinesStrip, trail.size());
+//        int i = 0;
+//        for(auto& point : trail){
+//            lines[i].position = point.position;
+//            lines[i].color = Color::Magenta;
+//            i++;
 //        }
-//        else window.draw(lines);
+//        window.draw(lines);
     }
 };
 
 struct Particle{
-    static const std::size_t DEFAULT_POINT_COUNT = 10;
+    static const std::size_t DEFAULT_POINT_COUNT = 20;
     typedef std::uniform_real_distribution<> UniRealDist;
     typedef std::uniform_int_distribution<> UniIntDist;
     typedef std::shared_ptr<Particle> ParticlePtr;
@@ -186,7 +182,7 @@ struct Particle{
     }
     
     void update_velocity(float dt){
-        velocity += dt * force / mass;
+        velocity += dt / 2 * force / mass;
     }
     
     bool contact(Particle& p){

@@ -124,7 +124,7 @@ namespace sim{
 //
         ParticleSystem system(window.getSize());
         //Bar piston;
-        system.spawn(10);
+        system.spawn(1);
         // Start the game loop
         while (window.isOpen())
         {
@@ -191,8 +191,8 @@ namespace sim{
 int main(int, char const**)
 {
     //test::run_test();
-    sim::elastic_collision();
-    //sim::nbody();
+    //sim::elastic_collision();
+    sim::nbody();
     //test::run_tilemaps_test();
     return EXIT_SUCCESS;
 }

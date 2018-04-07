@@ -41,8 +41,6 @@ namespace boundary_handle{
         else if( p->bottom() > mapHeight ) {
             p->velocity.y = -abs(p->velocity.y);
         }
-        p->shape.move(p->velocity);
-        p->trail.update_shape(p->getPosition());
     }
     
     inline void through_walls(Particle::ParticlePtr& p, int mapWidth, int mapHeight){
@@ -65,8 +63,6 @@ namespace boundary_handle{
             p->setPosition(sf::Vector2f( p->getPosition().x , mapHeight - abs(p->getPosition().y) ));
             //stop_trailing = true;
         }
-        p->shape.move(p->velocity);
-        p->trail.update_shape(p->getPosition());
     }
 };
 
@@ -97,10 +93,11 @@ public:
     void print_particle_position(std::shared_ptr<Quadtree>& root);
 protected:
     void draw(RenderTarget& target, RenderStates states) const {
+        auto window = static_cast<RenderWindow*>(&target);
         for(const auto& p : particleSystem)
         {
             p->trail.update_shape(p->getPosition());
-            p->trail.draw(target);
+            p->trail.draw(*window);
             //p->shape.move(p->velocity);
             target.draw( p->shape );
         }
