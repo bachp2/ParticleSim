@@ -14,7 +14,7 @@
 #include "ResourcePath.hpp"
 #include "Particle.hpp"
 
-class NBody
+class NBody : public sf::Drawable
 {
     TileMap tiles;
     const float dt = 1.0f/200.0f;

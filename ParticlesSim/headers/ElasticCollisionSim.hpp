@@ -45,23 +45,18 @@ namespace boundary_handle{
     
     inline void through_walls(Particle::ParticlePtr& p, int mapWidth, int mapHeight){
         float LP = 5.f;
-        //bool stop_trailing = false;
         if( p->right() < 0.0f - LP) {
             p->setPosition(sf::Vector2f( mapWidth + abs(p->getPosition().x) , p->getPosition().y));
-            //stop_trailing = true;
         }
         else if ( p->left() > mapWidth + LP ){
             p->setPosition(sf::Vector2f( mapWidth - abs(p->getPosition().x) , p->getPosition().y));
-            //stop_trailing = true;
         }
         
         if( p->bottom() < 0.0f - LP){
             p->setPosition(sf::Vector2f( p->getPosition().x , mapHeight + abs(p->getPosition().y) ));
-            //stop_trailing = true;
         }
         else if( p->top() > mapHeight + LP) {
             p->setPosition(sf::Vector2f( p->getPosition().x , mapHeight - abs(p->getPosition().y) ));
-            //stop_trailing = true;
         }
     }
 };
@@ -83,7 +78,6 @@ public:
         mapHeight = canvasSize.y;
         mapWidth = canvasSize.x;
         tileMap.init("grid.png", mapWidth, mapHeight, 25);
-        //std::cout << mapWidth << ' ' << mapHeight << std::endl;
     }
     
     void spawn(int n);

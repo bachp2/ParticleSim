@@ -45,7 +45,6 @@ void ParticleSystem::spawn(int n){
         }
         particle->velocity = velocity;
         particleSystem.push_back(particle);
-        //particle.reset();
     }
 }
 void ParticleSystem::update_physics()
@@ -53,8 +52,6 @@ void ParticleSystem::update_physics()
     //bruteforce();
     //quadtree optimization
     root->clear();
-    //assert(root->MAX_OBJECTS == 10);
-    //assert(root->empty());
     for(auto& p : particleSystem){
         root->insert(p);
     }
@@ -64,22 +61,13 @@ void ParticleSystem::update_physics()
     std::vector<ParticlePtr> returnObjPtrs;
     
     for(auto j = particleSystem.begin(); j != particleSystem.end(); j++){
-        //std::cout << &(*j) << std::endl;
         returnObjPtrs.clear();
-        //assert(!returnObjPtrs.empty());
         returnObjPtrs = root->retrieve(returnObjPtrs, *j);
         auto duplicate = std::find(returnObjPtrs.begin(), returnObjPtrs.end(), *j);
         if(duplicate != returnObjPtrs.end()) returnObjPtrs.erase(duplicate);
-        //assert(!returnObjPtrs.empty());
-        //assert(returnObjPtrs.size() != 1000);
-        //std::cout << *j << " position: " << (*j)->shape.getRadius() << ' ' << (*j)->shape.getPosition().x << std::endl;
         for(auto i = returnObjPtrs.begin(); i != returnObjPtrs.end(); i++){
             if( (*j)->contact(**i) ) {
-                //(*j)->setColor(sf::Color::Red);
-                //(*i)->setColor(sf::Color::Red);
-                //std::cout << "collision" << std::endl;
                 collide(*i, *j);
-                //std::cout << *i << " position: " << (*i)->shape.getRadius() << ' ' << (*i)->shape.getPosition().x << std::endl;
                 while( (*j)->contact(**i) ){
                     (*j)->shape.move( (*j)->velocity );
                     (*i)->shape.move( (*i)->velocity );
@@ -123,8 +111,6 @@ void ParticleSystem::bruteforce(){
     for(auto j = particleSystem.begin(); j != particleSystem.end(); j++){
         for(auto i = j+1; i != particleSystem.end(); i++){
             if( (*j)->contact(**i) ) {
-                //(*j)->setColor(sf::Color::Red);
-                //(*i)->setColor(sf::Color::Red);
                 collide(*i, *j);
                 while( (*j)->contact(**i) ){
                     (*j)->shape.move( (*j)->velocity );
@@ -142,15 +128,12 @@ void ParticleSystem::collide(ParticlePtr& p1, ParticlePtr& p2){
     auto r2 = p2->getPosition();
     auto dr = r1-r2;
     float dist_square = pow(dr.x,2) + pow(dr.y,2);
-    //auto p12u = (r1-r2)/dist;
-    //auto dv = float( dotProduct(v1-v2, r1-r2)/pow(dist,2) ) * (r1-r2);
     auto v1prime = v1 - float( dotProduct(v1-v2, dr)/dist_square ) * (dr);
     auto v2prime = v2 - float( dotProduct(v2-v1, -dr)/dist_square ) * (-dr);
     p1->velocity = v1prime;
     p2->velocity = v2prime;
     p1->set_radius(p1->radius() + 1.0f);
     p1->shape.setOrigin(p1->radius(), p1->radius());
-    //p1->shape.setOrigin(1.0f, 1.0f);
     p2->set_radius(p2->radius() + 1.0f);
     p2->shape.setOrigin(p2->radius(), p2->radius());
 }
@@ -164,7 +147,6 @@ void ParticleSystem::print_particle_position(std::vector<ParticlePtr>& system){
 }
 
 void ParticleSystem::print_particle_position(std::shared_ptr<Quadtree>& root){
-    //assert(root->entities.size() == 10);
     printf("%p level %d\n", &(*root), root->level);
     print_particle_position(root->entities);
     for (int i = 0; i < 4; i++) {
