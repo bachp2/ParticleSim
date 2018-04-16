@@ -30,7 +30,6 @@
 // Headers
 ////////////////////////////////////////////////////////////
 #include <string>
-#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <random>

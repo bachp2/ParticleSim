@@ -138,6 +138,7 @@ void ParticleSystem::collide(ParticlePtr& p1, ParticlePtr& p2){
     p2->shape.setOrigin(p2->radius(), p2->radius());
 }
 
+//TEST-----------------------------------------------------------------------------
 void ParticleSystem::print_particle_position(std::vector<ParticlePtr>& system){
     int i = 0;
     for(auto p : system){

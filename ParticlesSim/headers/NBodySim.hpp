@@ -14,7 +14,7 @@
 #include "ResourcePath.hpp"
 #include "Particle.hpp"
 
-class NBody : public sf::Drawable
+class NBody
 {
     TileMap tiles;
     const float dt = 1.0f/200.0f;
@@ -30,7 +30,6 @@ public:
     NBody(sf::Vector2u canvasSize){
         mapHeight = canvasSize.y;
         mapWidth = canvasSize.x;
-        //std::cout << mapWidth << ' ' << mapHeight << std::endl;
         tiles.init("grid.png", mapWidth, mapHeight, 50);
     };
     

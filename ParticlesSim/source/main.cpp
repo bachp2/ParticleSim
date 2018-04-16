@@ -19,7 +19,7 @@
 #include "ResourcePath.hpp"
 #include "ElasticCollisionSim.hpp"
 #include "NBodySim.hpp"
-
+#include "ConicSections.hpp"
 //#define DISPLAY_TRAIL_ON_PARTICLE
 
 namespace test{
@@ -103,8 +103,34 @@ namespace test{
         
     }
     
-    void run_nbody_test(){
-    
+    void run_conic_sections_test(){
+        sf::RenderWindow window(sf::VideoMode{windowWidth,windowHeight}, "Tilemap test", sf::Style::Titlebar | sf::Style::Close);
+        ConicSections::init();
+        while (window.isOpen())
+        {
+            // Process events
+            sf::Event event;
+            while (window.pollEvent(event))
+            {
+                // Close window: exit
+                if (event.type == sf::Event::Closed) {
+                    window.close();
+                }
+                
+                // Escape pressed: exit
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+                    window.close();
+                }
+            }
+            // Clear screen
+            window.clear(sf::Color::White);
+            //draw entities
+            //ConicSections::draw_circle(window, 100, 100, 100);
+            //ConicSections::draw_parabola(window, 100, 100, -25);
+            ConicSections::draw_hyperbola(window, 100, 100, 75, 25);
+            // Update the window
+            window.display();
+        }
     }
 }
 
@@ -192,8 +218,9 @@ int main(int, char const**)
 {
     //test::run_test();
     //sim::elastic_collision();
-    sim::nbody();
+    //sim::nbody();
     //test::run_tilemaps_test();
+    test::run_conic_sections_test();
     return EXIT_SUCCESS;
 }
 

@@ -82,7 +82,7 @@ void NBody::update_physics(){
         }
     }
     clean_up_dead_particles();
-    //update particles' velocity again for full step;
+    //update particles' velocity again for a full step;
     for(const auto& p : nbodySystem){
         p->update_velocity(dt);
     }

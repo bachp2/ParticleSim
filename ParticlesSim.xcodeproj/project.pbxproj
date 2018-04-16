@@ -28,6 +28,7 @@
 		421DA3331FFB5FBE0098929D /* NBodySim.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NBodySim.hpp; sourceTree = "<group>"; };
 		422877932066D0420071E2A8 /* grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid.png; sourceTree = "<group>"; };
 		422877962066DD700071E2A8 /* TileMap.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TileMap.hpp; sourceTree = "<group>"; };
+		424DF4252083EA2400B5257D /* ConicSections.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ConicSections.hpp; sourceTree = "<group>"; };
 		425E9A5120674AAC00F41BD3 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		425E9A55206C087400F41BD3 /* Utility.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Utility.cpp; path = ParticlesSim/source/Utility.cpp; sourceTree = SOURCE_ROOT; };
 		425E9A56206C087400F41BD3 /* Utility.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Utility.hpp; path = ParticlesSim/source/Utility.hpp; sourceTree = SOURCE_ROOT; };
@@ -101,6 +102,7 @@
 				420CA0BC1FF854DA00EECC49 /* ResourcePath.hpp */,
 				422877962066DD700071E2A8 /* TileMap.hpp */,
 				425E9A56206C087400F41BD3 /* Utility.hpp */,
+				424DF4252083EA2400B5257D /* ConicSections.hpp */,
 			);
 			path = headers;
 			sourceTree = "<group>";
